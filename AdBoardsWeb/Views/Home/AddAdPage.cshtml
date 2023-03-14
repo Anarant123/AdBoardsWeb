@@ -1,0 +1,54 @@
+﻿@{
+    ViewData["Title"] = "Добавить объявление";
+}
+
+<main>
+    <div class="container border-dark">
+        <div class="row">
+            <div class="col-3">
+                <div class="mb-2 text-center ">
+                    <img src="/Images/auto-6.jpg" class="img-thumbnail img-fluid mb-2" alt="">
+                    <button type="button" class="btn btn-outline-primary">Добавить фото</button>
+                </div>
+            </div>
+
+            <div class="col-9">
+                <div class="mb-1">
+                    <label class="form-label">Название:</label>
+                    <input class="form-control">
+                </div>
+                <div class="mb-1">
+                    <label for="exampleFormControlTextarea1" class="form-label">Описание:</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="6"></textarea>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-4 mb-1">
+                        <label class="form-label">Цена:</label>
+                        <input class="form-control">
+                    </div>
+                    <div class="col-4 mb-1">
+                        <label class="form-label">Категория:</label>
+                        <select class="form-control" aria-label="Default select example">
+                            <option selected>Личные вещи</option>
+                            <option value="1">Транспорт</option>
+                            <option value="2">Электроника</option>
+                            <option value="3">Недвижимость</option>
+                        </select>
+                    </div>
+                    <div class="col-4 mb-1">
+                        <label class="form-label">Город:</label>
+                        <input class="form-control">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 text-center d-grid gap-2 mx-auto">
+                        <button type="button" class="btn btn-outline-primary btn-block">Опубликовать</button>
+                    </div>
+                    <div class="col-6 text-center d-grid gap-2 mx-auto">
+                        <button type="button" class="btn btn-outline-primary btn-block">Отмена</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

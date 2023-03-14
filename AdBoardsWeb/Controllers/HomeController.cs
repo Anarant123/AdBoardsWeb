@@ -13,12 +13,52 @@ namespace AdBoardsWeb.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult AddAdPage()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult AdPage()
+        {
+            return View();
+        }
+
+        public IActionResult AdsPage()
+        {
+            return View();
+        }
+
+        public IActionResult AuthorizationPage()
+        {
+            return View();
+        }
+
+        public IActionResult EditingProfilePage()
+        {
+            return View();
+        }
+
+        public IActionResult FavoritesAdsPage()
+        {
+            return View();
+        }
+
+        public IActionResult MyAdsPage()
+        {
+            return View();
+        }
+
+        public IActionResult ProfilePage()
+        {
+            return View();
+        }
+
+        public IActionResult RecoveryPasswordPage()
+        {
+            return View();
+        }
+
+        public IActionResult RegistrationPage()
         {
             return View();
         }

@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Объявление";
+}
+
+<main>
+    <div class="container border-dark">
+        <div class="row">
+            <div class="col-3">
+                <div class="mb-2 text-center ">
+                    <img src="/Images/auto-4.jpg" class="img-thumbnail img-fluid mb-2" alt="">
+                </div>
+            </div>
+
+            <div class="col-9">
+                <div class="mb-1">
+                    <label class="form-label">Название:</label>
+                    <input class="form-control" value="Supra">
+                </div>
+                <div class="mb-1">
+                    <label for="exampleFormControlTextarea1" class="form-label">Описание:</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="6">Не бита не крашена, в хорошем состоянии, быстрым торг.</textarea>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-4 mb-1">
+                        <label class="form-label">Цена:</label>
+                        <input class="form-control" value="3000000 ₽">
+                    </div>
+                    <div class="col-4 mb-1">
+                        <label class="form-label">Категория:</label>
+                        <input class="form-control" value="Транспорт">
+                    </div>
+                    <div class="col-4 mb-1">
+                        <label class="form-label">Город:</label>
+                        <input class="form-control" value="Казань">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6 text-center d-grid gap-2 mx-auto">
+                        <button type="button" class="btn btn-outline-primary btn-block">Добавить в избранное</button>
+                    </div>
+                    <div class="col-6 text-center d-grid gap-2 mx-auto">
+                        <button type="button" class="btn btn-outline-primary btn-block">Вернуться на главную</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
