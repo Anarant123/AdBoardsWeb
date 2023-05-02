@@ -7,41 +7,50 @@
         <div class="row">
             <div class="col-3">
                 <div class="mb-2 text-center ">
-                    <img src="/Images/person.jpg" class="img-thumbnail img-fluid mb-2" alt="">
-                    <button type="button" class="btn btn-outline-primary">Добавить фото</button>
+                    <img src="/drawable/icon_image_person.png" class="img-thumbnail img-fluid mb-2" height="400" width="400" alt="">
                 </div>
             </div>
 
             <div class="col-9">
-                <div class="mb-1">
-                    <label class="form-label">Никнейм:</label>
-                    <input class="form-control" value="Васян">
-                </div>
-                <div class="mb-1">
-                    <label class="form-label">Номер телефона:</label>
-                    <input class="form-control" value="+78005553535">
-                </div>
-                <div class="mb-1">
-                    <label class="form-label">Почта:</label>
-                    <input class="form-control" value="vasya.koresh@mail.ru">
-                </div>
-                <div class="mb-1">
-                    <label class="form-label">Дата рождения:</label>
-                    <input class="form-control" value="24.08.2001">
-                </div>
-                <div class="mb-1">
-                    <label class="form-label">Город:</label>
-                    <input class="form-control" value="Казань">
-                </div>
-                <div class="row">
-                    <div class="col-6 text-center d-grid gap-2 mx-auto">
-                        <button type="button" class="btn btn-outline-primary btn-block">Сохранить изменения</button>
+                <div class="container">
+                    <div class="mb-1 row">
+                        <label class="lblperson">Никнейм</label>
                     </div>
-                    <div class="col-6 text-center d-grid gap-2 mx-auto">
-                        <button type="button" class="btn btn-outline-primary btn-block">Сбросить изменения</button>
+                    <div class="mb-1 row">
+                        <label class="lblperson">99 Лет</label>
+                    </div>
+                    <div class="mb-1 row">
+                        <div class="col-1">
+                            <img class="img-fluid rounded-start" height="30" width="30" src="/drawable/icon_phone.png" />
+                        </div>
+                        <div class="col-11">
+                            <label class="col-11 lblperson">+79373669868</label>
+                        </div>
+                    </div>
+                    <div class="mb-1 row">
+                        <div class="col-1">
+                            <img class="img-fluid rounded-start" height="30" width="30" src="/drawable/icon_mail.png" />
+                        </div>
+                        <div class="col-11">
+                            <label class="col-11 lblperson">misha.safronov.02.12@mail.ru</label>
+                        </div>
+                    </div>
+                    <div class="mb-1 row">
+                        <div class="col-1">
+                            <img class="img-fluid rounded-start" height="30" width="30" src="/drawable/icon_map_location.png" />
+                        </div>
+                        <div class="col-11">
+                            <label class="col-11 lblperson">Казань</label>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-3 text-center d-grid gap-2 mx-auto">
+                <button type="button" class="btn btn-outline-primary btn-block" onclick="location.href='@Url.Action("EditingProfilePage", "Home")'">Редактировать профиль</button>
+            </div>
+            <div class="col-9"></div>
         </div>
     </div>
 </main>

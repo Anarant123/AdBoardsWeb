@@ -13,36 +13,36 @@
         <div class="px-3 py-2 bg-dark text-white">
             <div class="container">
                 <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                    <a class="navbar-brand d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none" asp-area="" asp-controller="Home" asp-action="AdsPage">AdBoards</a>
+                    <a class="navbar-brand d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none fs-2" asp-area="" asp-controller="Home" asp-action="AdsPage">AdBoards</a>
 
                     <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                         <li>
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="AdsPage">
-                                <img class="bi d-block mx-auto mb-1" width="24" height="24" src="/drawable/icon_loop.png" />
+                                <img class="bi d-block mx-auto mb-1" width="24" height="24" src="/drawable0/icon_loop.png" />
                                 Поиск
                             </a>
                         </li>
                         <li>
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="MyAdsPage">
-                                <img class="bi d-block mx-auto mb-1" width="24" height="24" src="/drawable/icon_my_ads.png" />
+                                <img class="bi d-block mx-auto mb-1" width="24" height="24" src="/drawable0/icon_my_ads.png" />
                                 Мои объявления
                             </a>
                         </li>
                         <li>
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="AddAdPage">
-                                <img class="bi d-block mx-auto mb-1" width="24" height="24" src="/drawable/icon_plus.png" />
+                                <img class="bi d-block mx-auto mb-1" width="24" height="24" src="/drawable0/icon_plus.png" />
                                 Добавить объявление
                             </a>
                         </li>
                         <li>
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="FavoritesAdsPage">
-                                <img class="bi d-block mx-auto mb-1" width="24" height="24" src="/drawable/icon_favorites.png" />
+                                <img class="bi d-block mx-auto mb-1" width="24" height="24" src="/drawable0/icon_favorites.png" />
                                 Избранное
                             </a>
                         </li>
                         <li>
                             <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="ProfilePage">
-                                <img class="bi d-block mx-auto mb-1" width="24" height="24" src="/drawable/icon_person.png" />
+                                <img class="bi d-block mx-auto mb-1" width="24" height="24" src="/drawable0/icon_person.png" />
                                 Мой профиль
                             </a>
                         </li>
@@ -53,14 +53,14 @@
 
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3" style="padding:20px">
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - AdBoardsWeb - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2023 - AdBoardsWeb - <a href="https://github.com/Anarant123">Mikhail Safronov</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
