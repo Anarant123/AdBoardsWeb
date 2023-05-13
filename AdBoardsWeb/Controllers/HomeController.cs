@@ -1,6 +1,8 @@
 ﻿using AdBoardsWeb.Models;
+using AdBoardsWeb.Models.db;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Net.Http;
 
 namespace AdBoardsWeb.Controllers
 {
@@ -8,13 +10,17 @@ namespace AdBoardsWeb.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+		public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
-        public IActionResult AddAdPage()
+		public IActionResult AddAdPage()
         {
+            if (Context.UserNow == null)
+            {
+                return View("AuthorizationPage");
+            }
             return View();
         }
 
@@ -35,22 +41,42 @@ namespace AdBoardsWeb.Controllers
 
         public IActionResult EditingProfilePage()
         {
+            if (Context.UserNow == null)
+            {
+                return View("AuthorizationPage");
+            }
             return View();
         }
 
         public IActionResult FavoritesAdsPage()
         {
+            if (Context.UserNow == null)
+            {
+                return View("AuthorizationPage");
+            }
             return View();
         }
 
         public IActionResult MyAdsPage()
         {
+            if (Context.UserNow == null)
+            {
+                return View("AuthorizationPage");
+            }
             return View();
         }
 
         public IActionResult ProfilePage()
         {
-            return View();
+            if (Context.UserNow == null)
+            {
+                return View("AuthorizationPage");
+            }
+            else
+            {
+                Person user = Context.UserNow!;
+                return View("~/Views/Home/ProfilePage.cshtml", user);
+            }
         }
 
         public IActionResult RecoveryPasswordPage()
