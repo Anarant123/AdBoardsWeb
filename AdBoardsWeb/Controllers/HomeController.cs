@@ -17,11 +17,12 @@ namespace AdBoardsWeb.Controllers
 
 		public IActionResult AddAdPage()
         {
+            Context.AdNow = new Ad();
             if (Context.UserNow == null)
             {
                 return View("AuthorizationPage");
             }
-            return View();
+            return View(Context.AdNow);
         }
 
         public IActionResult AdPage()

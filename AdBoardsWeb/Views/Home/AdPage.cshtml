@@ -14,24 +14,24 @@
             <div class="col-9">
                 <div class="mb-1">
                     <label class="form-label">Название:</label>
-                    <input class="form-control" value="Supra">
+                    <input class="form-control" value="@Model.Name">
                 </div>
                 <div class="mb-1">
                     <label for="exampleFormControlTextarea1" class="form-label">Описание:</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="6">Не бита не крашена, в хорошем состоянии, быстрым торг.</textarea>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="6">@Model.Description</textarea>
                 </div>
                 <div class="row mb-1">
                     <div class="col-4 mb-1">
                         <label class="form-label">Цена:</label>
-                        <input class="form-control" value="3000000 ₽">
+                        <input class="form-control" value="@Model.Price">
                     </div>
                     <div class="col-4 mb-1">
                         <label class="form-label">Категория:</label>
-                        <input class="form-control" value="Транспорт">
+                        <input class="form-control" value="@Model.CotegorysId">
                     </div>
                     <div class="col-4 mb-1">
                         <label class="form-label">Город:</label>
-                        <input class="form-control" value="Казань">
+                        <input class="form-control" value="@Model.City">
                     </div>
                 </div>
                 <div class="row">

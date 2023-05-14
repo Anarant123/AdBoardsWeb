@@ -6,44 +6,49 @@
     <div class="container border-dark">
         <div class="row">
             <div class="col-3">
-                <div class="row">
-                    <div class="mb-2 text-center ">
-                        <img src="/drawable/icon_image_person.png" class="img-thumbnail img-fluid mb-2" height="400" width="400" alt="">
+                    <div class="row">
+                        <div class="mb-2 text-center ">
+                            <img name="Photo" src="/drawable/icon_image_person.png" class="img-thumbnail img-fluid mb-2" height="400" width="400" alt="">
+                        </div>
                     </div>
-                </div>
-                <div class="row mb-2 text-center">
-                    <button type="button" class="btn btn-outline-primary btn-block">Установить Фото</button>
-                </div>
+                <form method="post" name="some" id="some" enctype="multipart/form-data">
+                    <div class="row mb-2 text-center">
+                        <input type="file" name="file" id="file" class="form-control-file" />
+                        <button type="submit" class="btn btn-outline-primary btn-block" asp-area="" asp-controller="EditingProfilePage" asp-action="SetPhoto">Установить Фото</button>
+                    </div>
+                </form>
             </div>
             <div class="col-9">
-                <div class="mb-1">
-                    <label class="form-label">Никнейм:</label>
-                    <input class="form-control" value="@Model.Name">
-                </div>
-                <div class="mb-1">
-                    <label class="form-label">Номер телефона:</label>
-                    <input class="form-control" value="@Model.Phone">
-                </div>
-                <div class="mb-1">
-                    <label class="form-label">Почта:</label>
-                    <input class="form-control" value="@Model.Email">
-                </div>
-                <div class="mb-1">
-                    <label class="form-label">Дата рождения:</label>
-                    <input class="form-control" value="@Model.Birthday">
-                </div>
-                <div class="mb-1">
-                    <label class="form-label">Город:</label>
-                    <input class="form-control" value="@Model.City">
-                </div>
-                <div class="row">
-                    <div class="col-6 text-center d-grid gap-2 mx-auto">
-                        <button type="button" class="btn btn-outline-primary btn-block">Сохранить изменения</button>
+                <form name="some2" id="some2">
+                    <div class="mb-1">
+                        <label class="form-label">Никнейм:</label>
+                        <input class="form-control" name="Name" value="@Model.Name">
                     </div>
-                    <div class="col-6 text-center d-grid gap-2 mx-auto">
-                        <button type="button" class="btn btn-outline-primary btn-block">Сбросить изменения</button>
+                    <div class="mb-1">
+                        <label class="form-label">Номер телефона:</label>
+                        <input class="form-control" name="Phone" value="@Model.Phone">
                     </div>
-                </div>
+                    <div class="mb-1">
+                        <label class="form-label">Почта:</label>
+                        <input class="form-control" name="Email" value="@Model.Email">
+                    </div>
+                    <div class="mb-1">
+                        <label class="form-label">Дата рождения:</label>
+                        <input class="form-control" name="Birthday" value="@Model.Birthday">
+                    </div>
+                    <div class="mb-1">
+                        <label class="form-label">Город:</label>
+                        <input class="form-control" name="City" value="@Model.City">
+                    </div>
+                    <div class="row">
+                        <div class="col-6 text-center d-grid gap-2 mx-auto">
+                            <button type="submit" class="btn btn-outline-primary btn-block" asp-area="" asp-controller="EditingProfilePage" asp-action="SaveProfileChanges">Сохранить изменения</button>
+                        </div>
+                        <div class="col-6 text-center d-grid gap-2 mx-auto">
+                            <a type="button" class="btn btn-outline-primary btn-block" asp-area="" asp-controller="EditingProfilePage" asp-action="EditingProfilePage">Сбросить изменения</a>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
