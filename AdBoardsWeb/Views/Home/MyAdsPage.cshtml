@@ -50,13 +50,19 @@
             </div>
 
             <div class="col-9">
-                <div class="row mb-2">
-                    <div class="col-4">
-                        <img src="/Images/auto-4.jpg" class="img-thumbnail img-fluid" alt="">
-                        <h5 class="h5">Supra</h5>
-                        <h5 class="h5">3000000 ₽</h5>
-                        <h5 class="h5">Казань</h5>
-                    </div>
+                <div class="row row-cols-3">
+                    @foreach (var ad in Model.AdList)
+                    {
+                        string base64String = Convert.ToBase64String(ad.Photo);
+
+                        <div class="col-4">
+                            <img src="data:image/png;base64,@base64String" class="img-thumbnail img-fluid" alt="">
+                            <h5 class="h5">@ad.Name</h5>
+                            <h5 class="h5">@ad.Price ₽</h5>
+                            <h5 class="h5">@ad.City</h5>
+                            <h5 class="h5" hidden="hidden">@ad.Id</h5>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

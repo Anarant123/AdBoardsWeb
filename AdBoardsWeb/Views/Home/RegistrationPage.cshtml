@@ -1,5 +1,13 @@
 ﻿@{
     ViewData["Title"] = "Регистрация";
+    if (Model.Login == null)
+    {
+        Model.Login = "";
+        Model.Birthday = DateTime.Now;
+        Model.Phone = "";
+        Model.Email = "";
+        Model.Password = "";
+    }
 }
 
 <main>
@@ -7,27 +15,27 @@
         <h1>Регистрация</h1>
         <form>
             <div class="form-group my-4">
-                <input type="text" class="form-control" id="username" placeholder="Логин...">
+                <input type="text" class="form-control" id="username" name="Login" value="@Model.Login" placeholder="Логин...">
             </div>
             <div class="form-group my-4">
                 <label for="confirmPassword">Дата рождения:</label>
-                <input type="date" class="form-control" id="birthdate">
+                <input type="date" class="form-control" id="birthdate" name="Birthday" value="@Model.Birthday">
             </div>
             <div class="form-group my-4">
-                <input type="tel" class="form-control" id="phone" placeholder="Телефон...">
+                <input type="tel" class="form-control" id="phone" placeholder="Телефон..." name="Phone" value="@Model.Phone">
             </div>
             <div class="form-group my-4">
-                <input type="email" class="form-control" id="email" placeholder="Email...">
+                <input type="email" class="form-control" id="email" placeholder="Email..." name="Email" value="@Model.Email">
             </div>
             <div class="form-group my-4">
-                <input type="password" class="form-control" id="password" placeholder="Пароль...">
+                <input type="password" class="form-control" id="password" placeholder="Пароль..." name="Password" value="@Model.Password">
             </div>
             <div class="form-group my-4">
-                <input type="password" class="form-control" id="confirmPassword" placeholder="Повторите пароль...">
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Повторите пароль..." name="confirmPassword">
             </div>
             <div class="container">
                 <div class="row">
-                    <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                    <button type="submit" class="btn btn-primary" asp-area="" asp-controller="RegistrationPage" asp-action="AuthorizationPage">Зарегистрироваться</button>
                 </div>
             </div>
         </form>

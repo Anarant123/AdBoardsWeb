@@ -3,6 +3,7 @@ using AdBoardsWeb.Models.db;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Text.Json;
 
 namespace AdBoardsWeb.Controllers
 {
@@ -30,9 +31,25 @@ namespace AdBoardsWeb.Controllers
             return View();
         }
 
-        public IActionResult AdsPage()
+        public async Task<IActionResult> AdsPage()
         {
-            return View();
+            AdListViewModel adList = new AdListViewModel();
+
+            var httpClient = new HttpClient();
+            using HttpResponseMessage response = await httpClient.GetAsync("http://localhost:5228/Ads/GetAds");
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            if (response.IsSuccessStatusCode)
+            {
+                adList.AdList = JsonSerializer.Deserialize<List<Ad>>(responseContent);
+
+                return View(adList);
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public IActionResult AuthorizationPage()
@@ -58,13 +75,32 @@ namespace AdBoardsWeb.Controllers
             return View();
         }
 
-        public IActionResult MyAdsPage()
+        public async Task<IActionResult> MyAdsPage()
         {
             if (Context.UserNow == null)
             {
                 return View("AuthorizationPage");
             }
-            return View();
+            else
+            {
+                AdListViewModel adList = new AdListViewModel();
+
+                var httpClient = new HttpClient();
+                using HttpResponseMessage response = await httpClient.GetAsync($"http://localhost:5228/Ads/GetMyAds?id={Context.UserNow.Id}");
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    adList.AdList = JsonSerializer.Deserialize<List<Ad>>(responseContent);
+
+                    return View(adList);
+                }
+                else
+                {
+                    return View();
+                }
+            }
         }
 
         public IActionResult ProfilePage()
@@ -87,7 +123,8 @@ namespace AdBoardsWeb.Controllers
 
         public IActionResult RegistrationPage()
         {
-            return View();
+            Person p = new Person();
+            return View(p);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
