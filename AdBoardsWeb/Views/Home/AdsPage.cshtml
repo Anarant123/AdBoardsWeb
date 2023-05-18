@@ -51,17 +51,19 @@
 
             <div class="col-9">
                 <div class="row row-cols-3">
-                    @foreach (var ad in Model.AdList)
+                    @foreach (var ad in Model.Ads)
                     {
                         string base64String = Convert.ToBase64String(ad.Photo);
 
-                        <div class="col-4">
-                            <img src="data:image/png;base64,@base64String" class="img-thumbnail img-fluid" alt="">
-                            <h5 class="h5">@ad.Name</h5>
-                            <h5 class="h5">@ad.Price ₽</h5>
-                            <h5 class="h5">@ad.City</h5>
-                            <h5 class="h5" hidden="hidden">@ad.Id</h5>
-                        </div>
+                        <form name="@ad.Id" method="post">
+                            <div class="col-4">
+                                <img src="data:image/png;base64,@base64String" class="img-thumbnail img-fluid" alt="">
+                                <button type="submit" class="h5" asp-controller="AdsPage" asp-action="OpenAd">@ad.Name</button>
+                                <h5 class="h5">@ad.Price ₽</h5>
+                                <h5 class="h5">@ad.City</h5>
+                                <input class="h5" name="Id" hidden="hidden" value="@ad.Id" />
+                            </div>
+                        </form>
                     }
                 </div>
             </div>

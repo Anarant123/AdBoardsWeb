@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace AdBoardsWeb.Controllers
 {
@@ -33,7 +34,6 @@ namespace AdBoardsWeb.Controllers
 
         public async Task<IActionResult> AdsPage()
         {
-            AdListViewModel adList = new AdListViewModel();
 
             var httpClient = new HttpClient();
             using HttpResponseMessage response = await httpClient.GetAsync("http://localhost:5228/Ads/GetAds");
@@ -42,9 +42,18 @@ namespace AdBoardsWeb.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                adList.AdList = JsonSerializer.Deserialize<List<Ad>>(responseContent);
+                Context.AdList = new AdListViewModel();
 
-                return View(adList);
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase, // Используйте это, если нужно преобразование в camelCase
+                    IgnoreNullValues = true,
+                    ReferenceHandler = ReferenceHandler.Preserve
+                };
+
+                Context.AdList.Ads = JsonSerializer.Deserialize<List<Ad>>(responseContent, options);
+
+                return View(Context.AdList);
             }
             else
             {
@@ -66,13 +75,42 @@ namespace AdBoardsWeb.Controllers
             return View();
         }
 
-        public IActionResult FavoritesAdsPage()
+        public async Task<IActionResult> FavoritesAdsPage()
         {
             if (Context.UserNow == null)
             {
                 return View("AuthorizationPage");
             }
-            return View();
+            else
+            {
+
+                var httpClient = new HttpClient();
+                using HttpResponseMessage response = await httpClient.GetAsync($"http://localhost:5228/Ads/GetFavoritesAds?id={Context.UserNow.Id}");
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Context.AdList = new AdListViewModel();
+
+                    var options = new JsonSerializerOptions
+                    {
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase, // Используйте это, если нужно преобразование в camelCase
+                        IgnoreNullValues = true,
+                        ReferenceHandler = ReferenceHandler.Preserve
+                    };
+
+                    Context.AdList.Ads = JsonSerializer.Deserialize<List<Ad>>(responseContent, options);
+
+                    ViewBag.IsSuccess = true;
+                    return View(Context.AdList);
+                }
+                else
+                {
+                    ViewBag.IsSuccess = false;
+                    return View();
+                }
+            }
         }
 
         public async Task<IActionResult> MyAdsPage()
@@ -83,7 +121,6 @@ namespace AdBoardsWeb.Controllers
             }
             else
             {
-                AdListViewModel adList = new AdListViewModel();
 
                 var httpClient = new HttpClient();
                 using HttpResponseMessage response = await httpClient.GetAsync($"http://localhost:5228/Ads/GetMyAds?id={Context.UserNow.Id}");
@@ -92,9 +129,9 @@ namespace AdBoardsWeb.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
-                    adList.AdList = JsonSerializer.Deserialize<List<Ad>>(responseContent);
+                    Context.AdList.Ads = JsonSerializer.Deserialize<List<Ad>>(responseContent);
 
-                    return View(adList);
+                    return View(Context.AdList);
                 }
                 else
                 {

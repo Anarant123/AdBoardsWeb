@@ -17,5 +17,12 @@ namespace AdBoardsWeb.Controllers
 
             return View("~/Views/Home/EditingProfilePage.cshtml", user);
         }
+
+        public IActionResult Exit()
+        {
+            Context.UserNow = null;
+
+            return View("~/Views/Home/AuthorizationPage.cshtml");
+        }
     }
 }

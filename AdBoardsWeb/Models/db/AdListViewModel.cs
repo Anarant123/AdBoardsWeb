@@ -2,6 +2,6 @@
 {
     public class AdListViewModel
     {
-        public List<Ad>? AdList { get; set;}
+        public List<Ad>? Ads { get; set;}
     }
 }
