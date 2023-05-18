@@ -36,6 +36,18 @@ namespace AdBoardsWeb.Controllers
                 return View("~/Views/Home/AdPage.cshtml", Context.AdNow);
             }
         }
+        
+        public async Task<IActionResult> DeleteFromFavorite(int Id)
+        {
+            var httpClient = new HttpClient();
+            using HttpResponseMessage response = await httpClient.DeleteAsync($"http://localhost:5228/Favorites/Delete?AdId={Context.AdNow.Id}&PersonId={Context.UserNow.Id}");
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+
+            ViewBag.IsFavorites = 2;
+            ViewBag.Result = 6;
+            return View("~/Views/Home/AdPage.cshtml", Context.AdNow);
+
+        }
 
         public async Task<IActionResult> ToComplain(int Id)
         {

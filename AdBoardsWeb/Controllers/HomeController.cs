@@ -129,6 +129,8 @@ namespace AdBoardsWeb.Controllers
 
                 if (response.IsSuccessStatusCode)
                 {
+                    Context.AdList = new AdListViewModel();
+
                     Context.AdList.Ads = JsonSerializer.Deserialize<List<Ad>>(responseContent);
 
                     return View(Context.AdList);

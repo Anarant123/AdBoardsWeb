@@ -14,13 +14,13 @@
         <div class="row">
             <div class="col-3">
                 <div class="row">
-                    <div class="mb-2 text-center ">
+                    <div class="mb-2 text-center">
                         <img src="data:image/png;base64,@adPhoto" class="img-thumbnail img-fluid mb-2" alt="">
                     </div>
                 </div>
                 <div class="row d-flex align-items-center">
                     <div class="col-6 mb-2 text-center ">
-                        <img src="@salesmanPhoto" class="img-thumbnail img-fluid mb-2" alt="">
+                        <img src="@salesmanPhoto" class="img-thumbnail img-fluid mb-2" style="width:100px;" alt="">
                     </div>
                     <div class="col-6">
                         <lable>@Model.Person.Name</lable>
@@ -54,9 +54,18 @@
                 <form>
                     <div class="row">
                         <input class="h5" name="Id" hidden="hidden" value="@Model.Id" />
-                        <div class="col-6 text-center d-grid gap-2 mx-auto">
-                            <button type="submit" class="btn btn-outline-primary btn-block " asp-controller="AdPage" asp-action="AdToFavorite">Добавить в избранное</button>
-                        </div>
+                        @if (ViewBag.IsFavorites == 2)
+                        {
+                            <div class="col-6 text-center d-grid gap-2 mx-auto">
+                                <button type="submit" class="btn btn-outline-primary btn-block " asp-controller="AdPage" asp-action="AdToFavorite">Добавить в избранное</button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-6 text-center d-grid gap-2 mx-auto">
+                                <button type="submit" class="btn btn-outline-primary btn-block " asp-controller="AdPage" asp-action="DeleteFromFavorite">Удалить из избранного</button>
+                            </div>
+                        }
                         <div class="col-6 text-center d-grid gap-2 mx-auto">
                             <button type="submit" class="btn btn-outline-primary btn-block" asp-controller="AdPage" asp-action="ToComplain">Пожаловаться</button>
                         </div>
@@ -99,6 +108,13 @@ else if (ViewBag.Result == 5)
 {
     <script>
         var str = "На это объявление уже поданна жалоба";
+        alert(str);
+    </script>
+}
+else if (ViewBag.Result == 6)
+{
+    <script>
+        var str = "Объявление удалено из избранного";
         alert(str);
     </script>
 }

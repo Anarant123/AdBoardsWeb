@@ -8,46 +8,53 @@
         <div class="container border-dark">
             <div class="row">
                 <div class="col-3">
-                    <div class="mb-1">
-                        <h1 class="h1 text-center" style="color: rgb(0,123,255);">Фильтры</h1>
-                    </div>
-                    <div class="mb-1">
-                        <label class="form-label">Цена от:</label>
-                        <input class="form-control">
-                    </div>
-                    <div class="mb-1">
-                        <label class="form-label">Цена до:</label>
-                        <input class="form-control">
-                    </div>
-                    <div class="mb-1">
-                        <label class="form-label">Город:</label>
-                        <input class="form-control">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Категория:</label>
-                        <select class="form-control" aria-label="Default select example">
-                            <option selected>Личные вещи</option>
-                            <option value="1">Транспорт</option>
-                            <option value="2">Электроника</option>
-                            <option value="3">Недвижимость</option>
-                        </select>
-                    </div>
-                    <div class="row mb-3 ">
-                        <div class="col-6 form-check text-center">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Куплю
-                            </label>
+                    <div class="border border-secondary rounded p-2 ">
+                        <div class="mb-1">
+                            <h1 class="h1 text-center text-dark" style="color: rgb(0,123,255);">Фильтры</h1>
                         </div>
-                        <div class="col-6 form-check text-center">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Продам
-                            </label>
+                        <div class="mb-1">
+                            <label class="form-label">Цена от:</label>
+                            <input class="form-control">
                         </div>
-                    </div>
-                    <div class="mb-2 text-center">
-                        <button type="button" class="btn btn-outline-primary">Применить фильтры</button>
+                        <div class="mb-1">
+                            <label class="form-label">Цена до:</label>
+                            <input class="form-control">
+                        </div>
+                        <div class="mb-1">
+                            <label class="form-label">Город:</label>
+                            <input class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Категория:</label>
+                            <select class="form-control" aria-label="Default select example" onselect="1">
+                                <option value="1">Личные вещи</option>
+                                <option value="2">Недвижимость</option>
+                                <option value="3">Транспорт</option>
+                                <option value="4">Услуга</option>
+                                <option value="5">Электроника</option>
+                            </select>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col text-center">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <input class="form-check-input form-check-input-dark" type="radio" name="buyOrSell" id="buyRadio" value="1" />
+                                    <label class="form-check-label mx-2" for="buyRadio">
+                                        Куплю
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col text-center">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <input class="form-check-input form-check-input-dark" type="radio" name="buyOrSell" id="sellRadio" value="2" checked="checked" />
+                                    <label class="form-check-label mx-2" for="sellRadio">
+                                        Продам
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-2 text-center">
+                            <button type="button" class="btn btn-dark text-light bg-dark">Применить фильтры</button>
+                        </div>
                     </div>
                 </div>
 
@@ -55,14 +62,24 @@
                     <div class="row row-cols-3">
                         @foreach (var ad in Model.Ads)
                         {
+                            string nameAd = ad.Name;
+                            if (nameAd.Length < 16)
+                                nameAd = nameAd + "...";
+                            else
+                                nameAd = nameAd.Substring(0, 16) + "...";
                             string base64String = Convert.ToBase64String(ad.Photo);
-
-                            <div class="col-4">
-                                <img src="data:image/png;base64,@base64String" class="img-thumbnail img-fluid" alt="">
-                                <h5 class="h5">@ad.Name</h5>
-                                <h5 class="h5">@ad.Price ₽</h5>
-                                <h5 class="h5">@ad.City</h5>
-                                <h5 class="h5" hidden="hidden">@ad.Id</h5>
+                            <div class="col-4 p-1">
+                                <div class="border border-secondary rounded p-1 ">
+                                    <form name="@ad.Id" method="post">
+                                        <div class="tile">
+                                        <img src="data:image/png;base64,@base64String" class="img-fluid object-fit-cover" alt="" />
+                                    </div>
+                                        <button type="submit" class="h4  btn-link p-0" asp-controller="AdsPage" asp-action="OpenAd" style="border: none; background-color: transparent; color: black; text-decoration: none; font-weight: bold">@nameAd</button>
+                                        <h5 class="h5">@ad.Price ₽</h5>
+                                        <h5 class="h5">@ad.City</h5>
+                                        <input class="h5" name="Id" hidden="hidden" value="@ad.Id" />
+                                    </form>
+                                </div>
                             </div>
                         }
                     </div>

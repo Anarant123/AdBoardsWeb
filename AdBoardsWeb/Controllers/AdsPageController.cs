@@ -11,9 +11,26 @@ namespace AdBoardsWeb.Controllers
         {
             _logger = logger;
         }
-        public IActionResult OpenAd(string Id)
+        public async Task<IActionResult>OpenAd(string Id)
         {
             Context.AdNow = Context.AdList.Ads.First(x => x.Id == Convert.ToInt32(Id));
+
+            if (Context.UserNow != null)
+            {
+                var httpClient = new HttpClient();
+                using HttpResponseMessage response = await httpClient.GetAsync($"http://localhost:5228/Favorites/IsFavorite?AdId={Context.AdNow.Id}&PersonId={Context.UserNow.Id}");
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+
+                if (response.IsSuccessStatusCode)
+                    ViewBag.IsFavorites = 1;
+                else
+                    ViewBag.IsFavorites = 2;
+            }
+            else
+            {
+                ViewBag.IsFavorites = 2;
+            }
+
 
             return View("~/Views/Home/AdPage.cshtml", Context.AdNow);
         }

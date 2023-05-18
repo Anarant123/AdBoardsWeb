@@ -27,6 +27,7 @@ namespace AdBoardsWeb.Controllers
 				user = JsonSerializer.Deserialize<Person>(responseContent)!;
 
 				Context.UserNow = user;
+				
 				return View("~/Views/Home/ProfilePage.cshtml", user);
 			}
 			else
