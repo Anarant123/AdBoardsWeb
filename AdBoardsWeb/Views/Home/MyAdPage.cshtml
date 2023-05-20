@@ -1,0 +1,105 @@
+﻿@{
+    ViewData["Title"] = "Объявление";
+    string adPhoto = Convert.ToBase64String(Model.Photo);
+}
+
+<main>
+    <div class="container border-dark">
+        <div class="row">
+            <div class="col-3">
+                <div class="row">
+                    <div class="mb-2 text-center">
+                        <img src="data:image/png;base64,@adPhoto" class="img-thumbnail img-fluid mb-2" alt="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-9">
+                <form>
+                    <div class="mb-1">
+                        <label class="form-label">Название:</label>
+                        <input class="form-control" name="Name" value="@Model.Name">
+                    </div>
+                    <div class="mb-1">
+                        <label for="exampleFormControlTextarea1" class="form-label">Описание:</label>
+                        <textarea class="form-control" name="Description" id="exampleFormControlTextarea1" rows="6">@Model.Description</textarea>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-4 mb-1">
+                            <label class="form-label">Цена:</label>
+                            <input class="form-control" name="Price" value="@Model.Price">
+                        </div>
+                        <div class="col-4 mb-1">
+                            <label class="form-label">Категория:</label>
+                            <select name="Cotegory" class="form-control" aria-label="Default select example">
+                                <option value="1">Личные вещи</option>
+                                <option value="2">Недвижимость</option>
+                                <option value="3">Транспорт</option>
+                                <option value="4">Услуга</option>
+                                <option value="5">Электроника</option>
+                            </select>
+                        </div>
+                        <div class="col-4 mb-1">
+                            <label class="form-label">Город:</label>
+                            <input class="form-control" name="City" value="@Model.City">
+                        </div>
+                    </div>
+                
+                    <div class="row">
+                        <input class="h5" name="Id" hidden="hidden" value="@Model.Id" />
+                        <div class="col-6 text-center d-grid gap-2 mx-auto">
+                            <button type="submit" class="btn btn-dark text-light bg-dark" asp-controller="MyAdPage" asp-action="SaveChanges">Сохранить изменения</button>
+                        </div>
+                        <div class="col-6 text-center d-grid gap-2 mx-auto">
+                            <button type="submit" class="btn btn-dark text-light bg-dark" asp-controller="MyAdPage" asp-action="Delete">Удалить</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+@if (ViewBag.Result == 1)
+{
+    <script>
+        var str = "Объявление добавленно в избранное";
+        alert(str);
+    </script>
+}
+else if (ViewBag.Result == 2)
+{
+    <script>
+        var str = "Объявление уже в избранном";
+        alert(str);
+    </script>
+}
+else if (ViewBag.Result == 3)
+{
+    <script>
+        var str = "Необходима авторизация";
+        alert(str);
+    </script>
+}
+else if (ViewBag.Result == 4)
+{
+    <script>
+        var str = "Жалоба успешно отправленна";
+        alert(str);
+    </script>
+}
+else if (ViewBag.Result == 5)
+{
+    <script>
+        var str = "На это объявление уже поданна жалоба";
+        alert(str);
+    </script>
+}
+else if (ViewBag.Result == 6)
+{
+    <script>
+        var str = "Объявление удалено из избранного";
+        alert(str);
+    </script>
+}
+

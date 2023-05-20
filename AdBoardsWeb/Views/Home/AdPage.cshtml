@@ -6,7 +6,6 @@
         salesmanPhoto = $"data:image/png;base64,{Convert.ToBase64String(Model.Person.Photo)}";
     else
         salesmanPhoto = "/drawable/icon_image_person.png";
-    string message = "";
 }
 
 <main>
@@ -57,17 +56,17 @@
                         @if (ViewBag.IsFavorites == 2)
                         {
                             <div class="col-6 text-center d-grid gap-2 mx-auto">
-                                <button type="submit" class="btn btn-outline-primary btn-block " asp-controller="AdPage" asp-action="AdToFavorite">Добавить в избранное</button>
+                                <button type="submit" class="btn btn-dark text-light bg-dark" asp-controller="AdPage" asp-action="AdToFavorite">Добавить в избранное</button>
                             </div>
                         }
                         else
                         {
                             <div class="col-6 text-center d-grid gap-2 mx-auto">
-                                <button type="submit" class="btn btn-outline-primary btn-block " asp-controller="AdPage" asp-action="DeleteFromFavorite">Удалить из избранного</button>
+                                <button type="submit" class="btn btn-dark text-light bg-dark" asp-controller="AdPage" asp-action="DeleteFromFavorite">Удалить из избранного</button>
                             </div>
                         }
                         <div class="col-6 text-center d-grid gap-2 mx-auto">
-                            <button type="submit" class="btn btn-outline-primary btn-block" asp-controller="AdPage" asp-action="ToComplain">Пожаловаться</button>
+                            <button type="submit" class="btn btn-dark text-light bg-dark" asp-controller="AdPage" asp-action="ToComplain">Пожаловаться</button>
                         </div>
                     </div>
                 </form>

@@ -15,8 +15,8 @@
         <div class="row">
             <div class="col-3">
                 <div class="mb-2 text-center ">
-                    <img src="/Images/auto-6.jpg" class="img-thumbnail img-fluid mb-2" alt="">
-                    <button type="button" class="btn btn-outline-primary">Добавить фото</button>
+                    <img src="/drawable/icon_image.png" class="img-thumbnail img-fluid mb-2" alt="">
+                    <button type="button" class="btn btn-dark text-light bg-dark">Добавить фото</button>
                 </div>
             </div>
 
@@ -50,26 +50,30 @@
                             <input name="City" class="form-control" value="@Model.City">
                         </div>
                     </div>
-                    <div class="row mx-1">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="buyOrSell" id="buyRadio" value="1" />
-                            <label class="form-check-label" for="buyRadio">
-                                Куплю
-                            </label>
+                    <div class="row mb-3">
+                        <div class="col text-center">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <input class="form-check-input form-check-input-dark" type="radio" name="buyOrSell" id="buyRadio" value="1" />
+                                <label class="form-check-label mx-2" for="buyRadio">
+                                    Куплю
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="buyOrSell" id="sellRadio" value="2" checked="checked" />
-                            <label class="form-check-label" for="sellRadio">
-                                Продам
-                            </label>
+                        <div class="col text-center">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <input class="form-check-input form-check-input-dark" type="radio" name="buyOrSell" id="sellRadio" value="2" checked="checked" />
+                                <label class="form-check-label mx-2" for="sellRadio">
+                                    Продам
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6 text-center d-grid gap-2 mx-auto">
-                            <button type="submit" class="btn btn-outline-primary btn-block" asp-area="" asp-controller="AddAdPage" asp-action="AddAd">Опубликовать</button>
+                            <button type="submit" class="btn btn-dark text-light bg-dark" asp-area="" asp-controller="AddAdPage" asp-action="AddAd">Опубликовать</button>
                         </div>
                         <div class="col-6 text-center d-grid gap-2 mx-auto">
-                            <a type="button" class="btn btn-outline-primary btn-block" asp-area="" asp-controller="Home" asp-action="AdsPage">Отмена</a>
+                            <a type="button" class="btn btn-dark text-light bg-dark" asp-area="" asp-controller="Home" asp-action="AdsPage">Отмена</a>
                         </div>
                     </div>
                 </form>

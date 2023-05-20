@@ -39,7 +39,7 @@ namespace AdBoardsWeb.Controllers
             {
                 Ad a = JsonSerializer.Deserialize<Ad>(jsonResponse)!;
                 Context.AdNow = a;
-                return View("~/Views/Home/AdPage.cshtml", a);
+                return View("~/Views/Home/MyAdPage.cshtml", a);
             }
             else
             {

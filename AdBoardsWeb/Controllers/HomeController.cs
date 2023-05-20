@@ -133,10 +133,12 @@ namespace AdBoardsWeb.Controllers
 
                     Context.AdList.Ads = JsonSerializer.Deserialize<List<Ad>>(responseContent);
 
+                    ViewBag.IsSuccess = true;
                     return View(Context.AdList);
                 }
                 else
                 {
+                    ViewBag.IsSuccess = false;
                     return View();
                 }
             }
