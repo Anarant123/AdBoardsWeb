@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Xml.Linq;
-using static System.Net.Mime.MediaTypeNames;
+
 
 namespace AdBoardsWeb.Controllers
 {
@@ -19,22 +19,21 @@ namespace AdBoardsWeb.Controllers
         {
             _logger = logger;
         }
-        public IActionResult SetPhoto(IFormFile file)
+
+        public IActionResult SetPhoto(string filephoto, string Name, string Phone, string Email, string Birthday, string City)
         {
-            person.Login = Context.UserNow.Login;
-            person.Name = Context.UserNow.Name;
-            person.Phone = Context.UserNow.Phone;
-            person.Email = Context.UserNow.Email;
-            person.Birthday = Context.UserNow.Birthday;
-            person.City = Context.UserNow.City;
-
-            person.Photo = System.IO.File.ReadAllBytes(file.FileName);
-
+            person.Name = Name;
+            person.Phone = Phone;
+            person.Email = Email;
+            person.Birthday = Convert.ToDateTime(Birthday);
+            person.City = City;
+            person.Photo = System.IO.File.ReadAllBytes(filephoto);
+            ViewBag.Photo = filephoto;
 
             return View("~/Views/Home/EditingProfilePage.cshtml", person);
         }
 
-        public async Task<IActionResult> SaveProfileChanges(string Name, string Phone, string Email, string Birthday, string City)
+        public async Task<IActionResult> SaveProfileChanges(string filephoto, string Name, string Phone, string Email, string Birthday, string City)
         {
             person.Login = Context.UserNow.Login;
             person.Name = Name;
@@ -42,6 +41,7 @@ namespace AdBoardsWeb.Controllers
             person.Email = Email;
             person.Birthday = Convert.ToDateTime(Birthday);
             person.City = City;
+            person.Photo = System.IO.File.ReadAllBytes(filephoto);
 
             var httpClient = new HttpClient();
             using StringContent jsonContent = new ( JsonSerializer.Serialize(person), Encoding.UTF8, "application/json");

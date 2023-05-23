@@ -4,22 +4,22 @@ using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using System.Text;
 using System;
+using System.Xml.Linq;
 
 namespace AdBoardsWeb.Controllers
 {
     public class AddAdPageController : Controller
     {
         private readonly ILogger<AddAdPageController> _logger;
+        AdDTO adDTO = new AdDTO();
 
         public AddAdPageController(ILogger<AddAdPageController> logger)
         {
             _logger = logger;
         }
 
-        public async Task<IActionResult> AddAd(string Name, string Description, string Price, string Cotegory, string City, string buyOrSell)
+        public async Task<IActionResult> AddAd(string filephoto, string Name, string Description, string Price, string Cotegory, string City, string buyOrSell)
         {
-
-            AdDTO adDTO = new AdDTO();
             adDTO.Name = Name;
             adDTO.City = City;
             adDTO.Date = DateTime.Now;
@@ -28,7 +28,7 @@ namespace AdBoardsWeb.Controllers
             adDTO.Price = Convert.ToInt32(Price);
             adDTO.TypeOfAdId = Convert.ToInt32(buyOrSell);
             adDTO.PersonId = Context.UserNow.Id;
-            adDTO.Photo = System.IO.File.ReadAllBytes(@"C:\Users\misha\Downloads\xcv.jpg");
+            adDTO.Photo = System.IO.File.ReadAllBytes(filephoto);
 
             var httpClient = new HttpClient();
             using StringContent jsonContent = new(JsonSerializer.Serialize(adDTO), Encoding.UTF8, "application/json");
@@ -43,9 +43,25 @@ namespace AdBoardsWeb.Controllers
             }
             else
             {
-                return View("~/Views/Home/AddAdPage.cshtml", adDTO); ;
+                return View("~/Views/Home/AddAdPage.cshtml", adDTO);
             }
 
+        }
+
+        public IActionResult SetPhoto(string filephoto, string Name, string Description, string Price, string Cotegory, string City, string buyOrSell)
+        {
+            adDTO.Name = Name;
+            adDTO.City = City;
+            adDTO.Date = DateTime.Now;
+            adDTO.CotegorysId = Convert.ToInt32(Cotegory);
+            adDTO.Description = Description;
+            adDTO.Price = Convert.ToInt32(Price);
+            adDTO.TypeOfAdId = Convert.ToInt32(buyOrSell);
+            adDTO.Photo = System.IO.File.ReadAllBytes(filephoto);
+            ViewBag.Photo = filephoto;
+
+
+            return View("~/Views/Home/AddAdPage.cshtml", adDTO);
         }
     }
 }

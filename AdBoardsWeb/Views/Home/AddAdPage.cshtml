@@ -8,20 +8,27 @@
         Model.CotegorysId = 0;
         Model.City = "";
     }
+
+    if (ViewBag.Photo == null)
+        ViewBag.Photo = "";
 }
 
 <main>
     <div class="container border-dark">
+                <form>
         <div class="row">
             <div class="col-3">
                 <div class="mb-2 text-center ">
-                    <img src="/drawable/icon_image.png" class="img-thumbnail img-fluid mb-2" alt="">
-                    <button type="button" class="btn btn-dark text-light bg-dark">Добавить фото</button>
+                    <img src="/drawable/icon_image.png" class="img-thumbnail img-fluid mb-2" alt=""/>
+
+                    <div class="row mb-2 text-center">
+                        <input name="filephoto" class="form-control mb-2" placeholder="Путь к файлу..." value="@ViewBag.Photo" />
+                        <button type="submit" class="btn btn-dark text-light bg-dark" asp-controller="AddAdPage" asp-action="SetPhoto">Установить Фото</button>
+                    </div>
                 </div>
             </div>
 
             <div class="col-9">
-                <form>
                     <div class="mb-1">
                         <label class="form-label">Название:</label>
                         <input name="Name" class="form-control" value="@Model.Name">
@@ -76,8 +83,8 @@
                             <a type="button" class="btn btn-dark text-light bg-dark" asp-area="" asp-controller="Home" asp-action="AdsPage">Отмена</a>
                         </div>
                     </div>
-                </form>
             </div>
         </div>
+                </form>
     </div>
 </main>

@@ -35,5 +35,22 @@ namespace AdBoardsWeb.Controllers
 				return View("~/Views/Home/AuthorizationPage.cshtml");
 			}
 		}
+
+		public async Task<IActionResult> Recovery(string Login)
+		{
+			var httpClient = new HttpClient();
+			var request = new HttpRequestMessage(HttpMethod.Post, $"http://localhost:5228/People/RecoveryPassword?Login={Login}");
+			var response = await httpClient.SendAsync(request);
+			var responseContent = await response.Content.ReadAsStringAsync();
+
+			if (response.IsSuccessStatusCode)
+			{
+				return View("~/Views/Home/AuthorizationPage.cshtml");
+			}
+			else
+			{
+				return View("~/Views/Home/AuthorizationPage.cshtml");
+			}
+		}
 	}
 }
