@@ -21,6 +21,7 @@ namespace AdBoardsWeb.Controllers
 
             if (Password == confirmPassword)
             {
+                person.RightId = 1;
                 person.Login = Login;
                 person.Birthday = Convert.ToDateTime(Birthday);
                 person.Phone = Phone;
