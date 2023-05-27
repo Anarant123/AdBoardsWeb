@@ -41,7 +41,9 @@ namespace AdBoardsWeb.Controllers
             person.Email = Email;
             person.Birthday = Convert.ToDateTime(Birthday);
             person.City = City;
-            person.Photo = System.IO.File.ReadAllBytes(filephoto);
+            if(!string.IsNullOrEmpty(filephoto))
+                person.Photo = System.IO.File.ReadAllBytes(filephoto);
+
 
             var httpClient = new HttpClient();
             using StringContent jsonContent = new ( JsonSerializer.Serialize(person), Encoding.UTF8, "application/json");
