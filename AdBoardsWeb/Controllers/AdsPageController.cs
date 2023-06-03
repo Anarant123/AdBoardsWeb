@@ -1,7 +1,7 @@
 ﻿using AdBoardsWeb.Models.db;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json.Serialization;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace AdBoardsWeb.Controllers
 {
@@ -37,7 +37,7 @@ namespace AdBoardsWeb.Controllers
             return View("~/Views/Home/AdPage.cshtml", Context.AdNow);
         }
 
-        public async Task<IActionResult> OpenMyAd(string Id)
+        public IActionResult OpenMyAd(string Id)
         {
             Context.AdNow = Context.AdList.Ads.First(x => x.Id == Convert.ToInt32(Id));
             Context.AdNow.Person = Context.UserNow;
@@ -81,8 +81,7 @@ namespace AdBoardsWeb.Controllers
 
                 var options = new JsonSerializerOptions
                 {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase, // Используйте это, если нужно преобразование в camelCase
-                    IgnoreNullValues = true,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                     ReferenceHandler = ReferenceHandler.Preserve
                 };
 

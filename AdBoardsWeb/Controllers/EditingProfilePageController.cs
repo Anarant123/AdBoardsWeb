@@ -1,12 +1,8 @@
 ﻿using AdBoardsWeb.DTO;
 using AdBoardsWeb.Models.db;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
-using System.Numerics;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Xml.Linq;
 
 
 namespace AdBoardsWeb.Controllers

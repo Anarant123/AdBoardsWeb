@@ -50,3 +50,7 @@ body {
     border: 1px solid #ccc; /* Рамка блока */
     overflow: hidden; /* Ограничение содержимого внутри блока */
 }
+
+textarea {
+    resize: vertical;
+}

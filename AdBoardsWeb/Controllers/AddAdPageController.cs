@@ -1,10 +1,8 @@
 ﻿using AdBoardsWeb.DTO;
 using AdBoardsWeb.Models.db;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 using System.Text;
-using System;
-using System.Xml.Linq;
+using System.Text.Json;
 
 namespace AdBoardsWeb.Controllers
 {
@@ -29,6 +27,7 @@ namespace AdBoardsWeb.Controllers
             adDTO.TypeOfAdId = Convert.ToInt32(buyOrSell);
             adDTO.PersonId = Context.UserNow.Id;
             adDTO.Photo = System.IO.File.ReadAllBytes(filephoto);
+            ViewBag.Photo = filephoto;
 
             var httpClient = new HttpClient();
             using StringContent jsonContent = new(JsonSerializer.Serialize(adDTO), Encoding.UTF8, "application/json");

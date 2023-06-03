@@ -1,6 +1,5 @@
 ﻿using AdBoardsWeb.Models.db;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
 namespace AdBoardsWeb.Controllers
 {

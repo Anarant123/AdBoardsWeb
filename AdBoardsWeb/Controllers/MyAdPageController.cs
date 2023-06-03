@@ -1,8 +1,7 @@
 ﻿using AdBoardsWeb.Models.db;
-using AdBoardsWebAPI.DTO;
+using AdBoardsWeb.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
-using System;
 using System.Text.Json;
 
 namespace AdBoardsWeb.Controllers

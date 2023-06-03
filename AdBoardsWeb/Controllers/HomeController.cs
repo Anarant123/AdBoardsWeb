@@ -2,7 +2,6 @@
 using AdBoardsWeb.Models.db;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -46,8 +45,7 @@ namespace AdBoardsWeb.Controllers
 
                 var options = new JsonSerializerOptions
                 {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase, // Используйте это, если нужно преобразование в camelCase
-                    IgnoreNullValues = true,
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                     ReferenceHandler = ReferenceHandler.Preserve
                 };
 
@@ -95,8 +93,7 @@ namespace AdBoardsWeb.Controllers
 
                     var options = new JsonSerializerOptions
                     {
-                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase, // Используйте это, если нужно преобразование в camelCase
-                        IgnoreNullValues = true,
+                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                         ReferenceHandler = ReferenceHandler.Preserve
                     };
 
