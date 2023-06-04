@@ -45,10 +45,10 @@ body {
 }
 
 .tile {
-    width: 297px; /* Ширина блока */
-    height: 200px; /* Высота блока */
-    border: 1px solid #ccc; /* Рамка блока */
-    overflow: hidden; /* Ограничение содержимого внутри блока */
+    width: 297px; 
+    height: 200px;
+    border: 1px solid #ccc;
+    overflow: hidden;
 }
 
 textarea {
