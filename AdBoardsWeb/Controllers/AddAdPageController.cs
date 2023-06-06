@@ -1,66 +1,54 @@
-﻿using AdBoardsWeb.DTO;
-using AdBoardsWeb.Models.db;
-using Microsoft.AspNetCore.Mvc;
+﻿using System.Net;
 using System.Text;
 using System.Text.Json;
+using AdBoards.ApiClient.Contracts.Requests;
+using AdBoardsWeb.DTO;
+using AdBoardsWeb.Models.db;
+using Microsoft.AspNetCore.Mvc;
 
-namespace AdBoardsWeb.Controllers
+namespace AdBoardsWeb.Controllers;
+
+public class AddAdPageController : Controller
 {
-    public class AddAdPageController : Controller
+    private readonly ILogger<AddAdPageController> _logger;
+    private readonly AdDTO adDTO = new();
+
+    public AddAdPageController(ILogger<AddAdPageController> logger)
     {
-        private readonly ILogger<AddAdPageController> _logger;
-        AdDTO adDTO = new AdDTO();
+        _logger = logger;
+    }
 
-        public AddAdPageController(ILogger<AddAdPageController> logger)
+    public async Task<IActionResult> AddAd(AddAdModel model)
+    {
+        var httpClient = new HttpClient();
+        using StringContent jsonContent = new(JsonSerializer.Serialize(adDTO), Encoding.UTF8, "application/json");
+        using var response = await httpClient.PostAsync("http://localhost:5228/Ads/Addition", jsonContent);
+        var jsonResponse = await response.Content.ReadAsStringAsync();
+
+        if (response.StatusCode == HttpStatusCode.OK)
         {
-            _logger = logger;
+            var a = JsonSerializer.Deserialize<Ad>(jsonResponse)!;
+            Context.AdNow = a;
+            return View("~/Views/Home/MyAdPage.cshtml", a);
         }
 
-        public async Task<IActionResult> AddAd(string filephoto, string Name, string Description, string Price, string Cotegory, string City, string buyOrSell)
-        {
-            adDTO.Name = Name;
-            adDTO.City = City;
-            adDTO.Date = DateTime.Now;
-            adDTO.CotegorysId = Convert.ToInt32(Cotegory);
-            adDTO.Description = Description;
-            adDTO.Price = Convert.ToInt32(Price);
-            adDTO.TypeOfAdId = Convert.ToInt32(buyOrSell);
-            adDTO.PersonId = Context.UserNow.Id;
-            adDTO.Photo = System.IO.File.ReadAllBytes(filephoto);
-            ViewBag.Photo = filephoto;
+        return View("~/Views/Home/AddAdPage.cshtml", adDTO);
+    }
 
-            var httpClient = new HttpClient();
-            using StringContent jsonContent = new(JsonSerializer.Serialize(adDTO), Encoding.UTF8, "application/json");
-            using HttpResponseMessage response = await httpClient.PostAsync("http://localhost:5228/Ads/Addition", jsonContent);
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                Ad a = JsonSerializer.Deserialize<Ad>(jsonResponse)!;
-                Context.AdNow = a;
-                return View("~/Views/Home/MyAdPage.cshtml", a);
-            }
-            else
-            {
-                return View("~/Views/Home/AddAdPage.cshtml", adDTO);
-            }
-
-        }
-
-        public IActionResult SetPhoto(string filephoto, string Name, string Description, string Price, string Cotegory, string City, string buyOrSell)
-        {
-            adDTO.Name = Name;
-            adDTO.City = City;
-            adDTO.Date = DateTime.Now;
-            adDTO.CotegorysId = Convert.ToInt32(Cotegory);
-            adDTO.Description = Description;
-            adDTO.Price = Convert.ToInt32(Price);
-            adDTO.TypeOfAdId = Convert.ToInt32(buyOrSell);
-            adDTO.Photo = System.IO.File.ReadAllBytes(filephoto);
-            ViewBag.Photo = filephoto;
+    public IActionResult SetPhoto(string filephoto, string Name, string Description, string Price, string Cotegory,
+        string City, string buyOrSell)
+    {
+        adDTO.Name = Name;
+        adDTO.City = City;
+        adDTO.Date = DateTime.Now;
+        adDTO.CotegorysId = Convert.ToInt32(Cotegory);
+        adDTO.Description = Description;
+        adDTO.Price = Convert.ToInt32(Price);
+        adDTO.TypeOfAdId = Convert.ToInt32(buyOrSell);
+        adDTO.Photo = System.IO.File.ReadAllBytes(filephoto);
+        ViewBag.Photo = filephoto;
 
 
-            return View("~/Views/Home/AddAdPage.cshtml", adDTO);
-        }
+        return View("~/Views/Home/AddAdPage.cshtml", adDTO);
     }
 }

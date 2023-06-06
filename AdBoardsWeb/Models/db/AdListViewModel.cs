@@ -1,7 +1,8 @@
-﻿namespace AdBoardsWeb.Models.db
+﻿using newAds = AdBoards.ApiClient.Contracts.Responses;
+
+namespace AdBoardsWeb.Models.db;
+
+public class AdListViewModel
 {
-    public class AdListViewModel
-    {
-        public List<Ad>? Ads { get; set;}
-    }
+    public List<newAds.Ad>? Ads { get; set; }
 }

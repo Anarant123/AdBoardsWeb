@@ -1,55 +1,49 @@
-﻿using AdBoardsWeb.Models.db;
+﻿using System.Security.Claims;
+using AdBoards.ApiClient;
+using AdBoards.ApiClient.Extensions;
+using AdBoardsWeb.Auth;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
 
-namespace AdBoardsWeb.Controllers
+namespace AdBoardsWeb.Controllers;
+
+public class AuthorizationPageController : Controller
 {
-	public class AuthorizationPageController : Controller
-	{
-		private readonly ILogger<AuthorizationPageController> _logger;
+    private readonly ILogger<AuthorizationPageController> _logger;
+    private readonly AdBoardsApiClient _api;
 
-		public AuthorizationPageController(ILogger<AuthorizationPageController> logger)
-		{
-			_logger = logger;
-		}
+    public AuthorizationPageController(ILogger<AuthorizationPageController> logger, AdBoardsApiClient api)
+    {
+        _logger = logger;
+        _api = api;
+    }
 
-		public async Task<IActionResult> Authorization(string login, string password)
-		{
-			var httpClient = new HttpClient();
-			var request = new HttpRequestMessage(HttpMethod.Post, $"http://localhost:5228/People/Authorization?login={login}&password={password}");
-			var response = await httpClient.SendAsync(request);
-			var responseContent = await response.Content.ReadAsStringAsync();
+    public async Task<IActionResult> Authorization(string login, string password)
+    {
+        var model = await _api.Authorize(login, password);
+        if (model is null) return View("~/Views/Home/AuthorizationPage.cshtml");
 
-			if (response.IsSuccessStatusCode)
-			{
-				Person user = new Person();
-				user = JsonSerializer.Deserialize<Person>(responseContent)!;
+        var claims = new List<Claim>
+        {
+            new("jwt", model.Token)
+        };
+        var identity = new ClaimsIdentity(claims, AuthSchemes.Cookie);
+        await HttpContext.SignInAsync(AuthSchemes.Cookie, new ClaimsPrincipal(identity),
+            new AuthenticationProperties { IsPersistent = true });
 
-				Context.UserNow = user;
-				
-				return View("~/Views/Home/ProfilePage.cshtml", user);
-			}
-			else
-			{
-				return View("~/Views/Home/AuthorizationPage.cshtml");
-			}
-		}
+        return RedirectToAction("ProfilePage", "Home");
+    }
 
-		public async Task<IActionResult> Recovery(string Login)
-		{
-			var httpClient = new HttpClient();
-			var request = new HttpRequestMessage(HttpMethod.Post, $"http://localhost:5228/People/RecoveryPassword?Login={Login}");
-			var response = await httpClient.SendAsync(request);
-			var responseContent = await response.Content.ReadAsStringAsync();
+    public async Task<IActionResult> Recovery(string Login)
+    {
+        var httpClient = new HttpClient();
+        var request = new HttpRequestMessage(HttpMethod.Post,
+            $"http://localhost:5228/People/RecoveryPassword?Login={Login}");
+        var response = await httpClient.SendAsync(request);
+        var responseContent = await response.Content.ReadAsStringAsync();
 
-			if (response.IsSuccessStatusCode)
-			{
-				return View("~/Views/Home/AuthorizationPage.cshtml");
-			}
-			else
-			{
-				return View("~/Views/Home/AuthorizationPage.cshtml");
-			}
-		}
-	}
+        if (response.IsSuccessStatusCode)
+            return View("~/Views/Home/AuthorizationPage.cshtml");
+        return View("~/Views/Home/AuthorizationPage.cshtml");
+    }
 }

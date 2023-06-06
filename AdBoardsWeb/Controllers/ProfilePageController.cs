@@ -1,28 +1,29 @@
 ﻿using AdBoardsWeb.Models.db;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AdBoardsWeb.Controllers
+namespace AdBoardsWeb.Controllers;
+
+public class ProfilePageController : Controller
 {
-    public class ProfilePageController : Controller
+    private readonly ILogger<ProfilePageController> _logger;
+
+    public ProfilePageController(ILogger<ProfilePageController> logger)
     {
-        private readonly ILogger<ProfilePageController> _logger;
+        _logger = logger;
+    }
 
-        public ProfilePageController(ILogger<ProfilePageController> logger)
-        {
-            _logger = logger;
-        }
-        public IActionResult EditingProfilePage()
-        {
-            Person user = Context.UserNow!;
+    public IActionResult EditingProfilePage()
+    {
+        /*var user = Context.UserNow!;
 
-            return View("~/Views/Home/EditingProfilePage.cshtml", user);
-        }
+        return View("~/Views/Home/EditingProfilePage.cshtml", user);*/
+        throw new Exception();
+    }
 
-        public IActionResult Exit()
-        {
-            Context.UserNow = null;
+    public IActionResult Exit()
+    {
+        /*Context.UserNow = null;*/
 
-            return View("~/Views/Home/AuthorizationPage.cshtml");
-        }
+        return View("~/Views/Home/AuthorizationPage.cshtml");
     }
 }

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace AdBoardsWeb.Models.db;
 
-namespace AdBoardsWeb.Models.db;
-
-public partial class TypeOfAd
+public class TypeOfAd
 {
     public int Id { get; set; }
 

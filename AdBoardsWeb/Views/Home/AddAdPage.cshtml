@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Добавить объявление";
-    if (Model.Name == null) 
+    if (Model.Name == null)
     {
         Model.Name = "";
         Model.Description = "";
@@ -8,7 +8,7 @@
         Model.CotegorysId = 0;
         Model.City = "";
     }
-    string base64String = "/drawable/icon_image.png";
+    var base64String = "/drawable/icon_image.png";
 
     if (Model.Photo != null)
         base64String = $"data:image/png;base64,{Convert.ToBase64String(Model.Photo)}";
@@ -17,20 +17,20 @@
 
 <main>
     <div class="container border-dark">
-                <form>
-        <div class="row">
-            <div class="col-3">
-                <div class="mb-2 text-center ">
-                        <img src="@base64String" class="img-thumbnail img-fluid mb-2" alt="" />
+        <form>
+            <div class="row">
+                <div class="col-3">
+                    <div class="mb-2 text-center ">
+                        <img src="@base64String" class="img-thumbnail img-fluid mb-2" alt=""/>
 
-                    <div class="row mb-2 text-center">
-                        <input name="filephoto" class="form-control mb-2" placeholder="Путь к файлу..." value="@ViewBag.Photo" />
-                        <button type="submit" class="btn btn-dark text-light bg-dark" asp-controller="AddAdPage" asp-action="SetPhoto">Установить Фото</button>
+                        <div class="row mb-2 text-center">
+                            <input name="filephoto" class="form-control mb-2" placeholder="Путь к файлу..." value="@ViewBag.Photo"/>
+                            <button type="submit" class="btn btn-dark text-light bg-dark" asp-controller="AddAdPage" asp-action="SetPhoto">Установить Фото</button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-9">
+                <div class="col-9">
                     <div class="mb-1">
                         <label class="form-label">Название:</label>
                         <input name="Name" class="form-control" value="@Model.Name">
@@ -62,7 +62,7 @@
                     <div class="row mb-3">
                         <div class="col text-center">
                             <div class="d-flex justify-content-center align-items-center">
-                                <input class="form-check-input form-check-input-dark" type="radio" name="buyOrSell" id="buyRadio" value="1" />
+                                <input class="form-check-input form-check-input-dark" type="radio" name="buyOrSell" id="buyRadio" value="1"/>
                                 <label class="form-check-label mx-2" for="buyRadio">
                                     Куплю
                                 </label>
@@ -70,7 +70,7 @@
                         </div>
                         <div class="col text-center">
                             <div class="d-flex justify-content-center align-items-center">
-                                <input class="form-check-input form-check-input-dark" type="radio" name="buyOrSell" id="sellRadio" value="2" checked="checked" />
+                                <input class="form-check-input form-check-input-dark" type="radio" name="buyOrSell" id="sellRadio" value="2" checked="checked"/>
                                 <label class="form-check-label mx-2" for="sellRadio">
                                     Продам
                                 </label>
@@ -85,8 +85,8 @@
                             <a type="button" class="btn btn-dark text-light bg-dark" asp-area="" asp-controller="Home" asp-action="AdsPage">Отмена</a>
                         </div>
                     </div>
+                </div>
             </div>
-        </div>
-                </form>
+        </form>
     </div>
 </main>

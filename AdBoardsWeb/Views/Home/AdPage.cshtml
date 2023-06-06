@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Объявление";
     string adPhoto = Convert.ToBase64String(Model.Photo);
-    string salesmanPhoto = "";
+    var salesmanPhoto = "";
     if (Model.Person.Photo != null)
         salesmanPhoto = $"data:image/png;base64,{Convert.ToBase64String(Model.Person.Photo)}";
     else
@@ -52,7 +52,7 @@
                 </div>
                 <form>
                     <div class="row">
-                        <input class="h5" name="Id" hidden="hidden" value="@Model.Id" />
+                        <input class="h5" name="Id" hidden="hidden" value="@Model.Id"/>
                         @if (ViewBag.IsFavorites == 2)
                         {
                             <div class="col-6 text-center d-grid gap-2 mx-auto">
@@ -75,21 +75,21 @@
     </div>
 </main>
 
-@if(ViewBag.Result == 1)
+@if (ViewBag.Result == 1)
 {
     <script>
         var str = "Объявление добавленно в избранное";
         alert(str);
     </script>
 }
-else if(ViewBag.Result == 2)
+else if (ViewBag.Result == 2)
 {
     <script>
         var str = "Объявление уже в избранном";
         alert(str);
     </script>
 }
-else if(ViewBag.Result == 3)
+else if (ViewBag.Result == 3)
 {
     <script>
         var str = "Необходима авторизация";
@@ -117,4 +117,3 @@ else if (ViewBag.Result == 6)
         alert(str);
     </script>
 }
-

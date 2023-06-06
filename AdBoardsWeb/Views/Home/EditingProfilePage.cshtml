@@ -7,21 +7,21 @@
 
 <main>
     <div class="container border-dark">
-            <form name="photoset">
-        <div class="row">
-            <div class="col-3">
+        <form name="photoset">
+            <div class="row">
+                <div class="col-3">
                     <div class="row">
                         <div class="mb-2 text-center ">
-                            <img name="Photo" src="data:image/png;base64,@base64String" class="img-thumbnail img-fluid mb-2" height="400" width="400" alt="" />
+                            <img name="Photo" src="data:image/png;base64,@base64String" class="img-thumbnail img-fluid mb-2" height="400" width="400" alt=""/>
                         </div>
                     </div>
-                
+
                     <div class="row mb-2 text-center">
-                        <input name="filephoto" class="form-control mb-2" placeholder="Путь к файлу..." value="@ViewBag.Photo" />
+                        <input name="filephoto" class="form-control mb-2" placeholder="Путь к файлу..." value="@ViewBag.Photo"/>
                         <button type="submit" class="btn btn-dark text-light bg-dark" asp-controller="EditingProfilePage" asp-action="SetPhoto">Установить Фото</button>
                     </div>
-            </div>
-            <div class="col-9">
+                </div>
+                <div class="col-9">
                     <div class="mb-1">
                         <label class="form-label">Никнейм:</label>
                         <input class="form-control" name="Name" value="@Model.Name">
@@ -50,8 +50,8 @@
                             <a type="button" class="btn btn-dark text-light bg-dark" asp-area="" asp-controller="EditingProfilePage" asp-action="EditingProfilePage">Сбросить изменения</a>
                         </div>
                     </div>
+                </div>
             </div>
-        </div>
-                </form>
+        </form>
     </div>
 </main>

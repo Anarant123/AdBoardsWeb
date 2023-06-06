@@ -1,6 +1,7 @@
-﻿@{
+﻿@model AdBoards.ApiClient.Contracts.Responses.Person
+
+@{
     ViewData["Title"] = "Профиль";
-    string base64String = Convert.ToBase64String(Model.Photo);
 }
 
 <main>
@@ -9,7 +10,7 @@
             <div class="col-3">
                 <div class="row">
                     <div class="mb-2 text-center ">
-                        <img src="data:image/png;base64,@base64String" class="img-thumbnail img-fluid mb-2" height="400" width="400" alt="">
+                        <img src="@Model.PhotoName" class="img-thumbnail img-fluid mb-2" height="400" width="400" alt="">
                     </div>
                 </div>
                 <div class="row text-center row-cols-1">
@@ -28,7 +29,7 @@
                     </div>
                     <div class="mb-1 row">
                         <div class="col-1">
-                            <img class="img-fluid rounded-start" height="30" width="30" src="/drawable/icon_phone.png" />
+                            <img class="img-fluid rounded-start" height="30" width="30" src="/drawable/icon_phone.png"/>
                         </div>
                         <div class="col-11">
                             <label class="col-11 lblperson">@Model.Phone</label>
@@ -36,7 +37,7 @@
                     </div>
                     <div class="mb-1 row">
                         <div class="col-1">
-                            <img class="img-fluid rounded-start" height="30" width="30" src="/drawable/icon_mail.png" />
+                            <img class="img-fluid rounded-start" height="30" width="30" src="/drawable/icon_mail.png"/>
                         </div>
                         <div class="col-11">
                             <label class="col-11 lblperson">@Model.Email</label>
@@ -44,7 +45,7 @@
                     </div>
                     <div class="mb-1 row">
                         <div class="col-1">
-                            <img class="img-fluid rounded-start" height="30" width="30" src="/drawable/icon_map_location.png" />
+                            <img class="img-fluid rounded-start" height="30" width="30" src="/drawable/icon_map_location.png"/>
                         </div>
                         <div class="col-11">
                             <label class="col-11 lblperson">@Model.City</label>

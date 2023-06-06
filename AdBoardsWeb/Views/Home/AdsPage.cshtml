@@ -8,7 +8,7 @@
             <div class="col-3">
                 <div class="border border-secondary rounded p-2 ">
                     <form name="ApplyFilters">
-                        <input class="h5" name="v" hidden="hidden" value="ads" />
+                        <input class="h5" name="v" hidden="hidden" value="ads"/>
                         <div class="mb-1">
                             <h1 class="h1 text-center text-dark" style="color: rgb(0,123,255);">Фильтры</h1>
                         </div>
@@ -38,7 +38,7 @@
                         <div class="row mb-3">
                             <div class="col text-center">
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <input class="form-check-input form-check-input-dark" type="radio" name="buyOrSell" id="buyRadio" value="1" />
+                                    <input class="form-check-input form-check-input-dark" type="radio" name="buyOrSell" id="buyRadio" value="1"/>
                                     <label class="form-check-label mx-2" for="buyRadio">
                                         Куплю
                                     </label>
@@ -46,7 +46,7 @@
                             </div>
                             <div class="col text-center">
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <input class="form-check-input form-check-input-dark" type="radio" name="buyOrSell" id="sellRadio" value="2" checked="checked" />
+                                    <input class="form-check-input form-check-input-dark" type="radio" name="buyOrSell" id="sellRadio" value="2" checked="checked"/>
                                     <label class="form-check-label mx-2" for="sellRadio">
                                         Продам
                                     </label>
@@ -67,30 +67,25 @@
                         @foreach (var ad in Model.Ads)
                         {
                             string nameAd = ad.Name;
+
                             if (nameAd.Length < 16)
-                                nameAd = nameAd + "...";
+                                nameAd += "...";
                             else
-                                nameAd = nameAd.Substring(0, 16) + "...";
+                                nameAd = nameAd[..16] + "...";
 
-                            string typeAd;
-                            if (@ad.TypeOfAdId == 1)
-                                typeAd = "Куплю";
-                            else
-                                typeAd = "Продам";
-
-                            string base64String = Convert.ToBase64String(ad.Photo);
+                            var typeAd = ad.TypeOfAdId == 1 ? "Куплю" : "Продам";
 
                             <div class="col-4 p-1">
-                                <div class="border border-secondary rounded p-1 ">
+                                <div class="border border-secondary rounded p-1">
                                     <form name="@ad.Id" method="post">
                                         <div class="tile">
-                                            <img src="data:image/png;base64,@base64String" class="img-fluid object-fit-cover" alt="" />
+                                            <img src="@ad.Photo" class="img-fluid object-fit-cover" alt=""/>
                                         </div>
                                         <button type="submit" class="h4  btn-link p-0" asp-controller="AdsPage" asp-action="OpenAd" style="border: none; background-color: transparent; color: black; text-decoration: none; font-weight: bold">@nameAd</button>
                                         <h5 class="h5">@ad.Price ₽</h5>
                                         <h5 class="h5">@ad.City</h5>
                                         <label class="my">@typeAd</label>
-                                        <input class="h5" name="Id" hidden="hidden" value="@ad.Id" />
+                                        <input class="h5" name="Id" hidden="hidden" value="@ad.Id"/>
                                     </form>
                                 </div>
                             </div>
