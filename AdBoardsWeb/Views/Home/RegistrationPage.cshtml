@@ -1,11 +1,11 @@
-﻿@model AdBoards.ApiClient.Contracts.Responses.PersonReg;
+﻿@model AdBoards.ApiClient.Contracts.Requests.PersonReg;
 
 @{
     ViewData["Title"] = "Регистрация";
     if (Model.Login == null)
     {
         Model.Login = "";
-        Model.Birthday = DateOnly.FromDateTime(DateTime.Today.AddYears(-14));
+        Model.Birthday = DateTime.Today.AddYears(-14).Date;
         Model.Phone = "";
         Model.Email = "";
         Model.Password = "";

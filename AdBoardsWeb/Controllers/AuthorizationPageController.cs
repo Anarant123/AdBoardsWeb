@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using AdBoards.ApiClient;
+using AdBoards.ApiClient.Contracts.Requests;
 using AdBoards.ApiClient.Contracts.Responses;
 using AdBoards.ApiClient.Extensions;
 using AdBoardsWeb.Auth;
@@ -35,9 +36,9 @@ public class AuthorizationPageController : Controller
         return RedirectToAction("ProfilePage", "Home");
     }
 
-    public async Task<IActionResult> Recovery(string Login)
+    public async Task<IActionResult> Recovery(string login)
     {
-        _api.Recover(Login);
+        await _api.Recover(login);
 
         return View("~/Views/Home/AuthorizationPage.cshtml");
     }
@@ -50,10 +51,6 @@ public class AuthorizationPageController : Controller
         {
             return RedirectToAction("AuthorizationPage", "Home");
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> 4272aded78983abc22d195e8468c88403d5dde4d
         return View("~/Views/Home/RegistrationPage.cshtml", person);
     }
 }

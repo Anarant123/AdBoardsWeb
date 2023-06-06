@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using AdBoards.ApiClient;
+using AdBoards.ApiClient.Contracts.Requests;
 using AdBoards.ApiClient.Contracts.Responses;
 using AdBoards.ApiClient.Extensions;
 using AdBoardsWeb.Models;
