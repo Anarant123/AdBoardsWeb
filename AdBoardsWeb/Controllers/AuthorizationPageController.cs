@@ -48,15 +48,15 @@ public class AuthorizationPageController : Controller
         return View("~/Views/Home/AuthorizationPage.cshtml");
     }
 
-    public async Task<IActionResult> Regist(string Login, string Birthday, string Phone, string Email, string Password, string ConfirmPassword)
+    public async Task<IActionResult> Registration(PersonReg person)
     {
-        var person = new PersonReg();
         var result = await _api.Registr(person);
 
         if (result)
         {
             return RedirectToAction("AuthorizationPage", "Home");
         }
-        return View(person);
+
+        return View("~/Views/Home/RegistrationPage.cshtml", person);
     }
 }
