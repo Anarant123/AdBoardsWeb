@@ -120,7 +120,7 @@ public class HomeController : Controller
 
     public IActionResult RegistrationPage()
     {
-        var p = new Person();
+        var p = new PersonReg();
         return View(p);
     }
 

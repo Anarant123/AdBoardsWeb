@@ -1,5 +1,6 @@
 ﻿using System.Security.Claims;
 using AdBoards.ApiClient;
+using AdBoards.ApiClient.Contracts.Responses;
 using AdBoards.ApiClient.Extensions;
 using AdBoardsWeb.Auth;
 using Microsoft.AspNetCore.Authentication;
@@ -45,5 +46,17 @@ public class AuthorizationPageController : Controller
         if (response.IsSuccessStatusCode)
             return View("~/Views/Home/AuthorizationPage.cshtml");
         return View("~/Views/Home/AuthorizationPage.cshtml");
+    }
+
+    public async Task<IActionResult> Regist(string Login, string Birthday, string Phone, string Email, string Password, string ConfirmPassword)
+    {
+        var person = new PersonReg();
+        var result = await _api.Registr(person);
+
+        if (result)
+        {
+            return RedirectToAction("AuthorizationPage", "Home");
+        }
+        return View(person);
     }
 }
