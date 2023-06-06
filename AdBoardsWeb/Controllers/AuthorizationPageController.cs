@@ -37,14 +37,8 @@ public class AuthorizationPageController : Controller
 
     public async Task<IActionResult> Recovery(string Login)
     {
-        var httpClient = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Post,
-            $"http://localhost:5228/People/RecoveryPassword?Login={Login}");
-        var response = await httpClient.SendAsync(request);
-        var responseContent = await response.Content.ReadAsStringAsync();
+        _api.Recover(Login);
 
-        if (response.IsSuccessStatusCode)
-            return View("~/Views/Home/AuthorizationPage.cshtml");
         return View("~/Views/Home/AuthorizationPage.cshtml");
     }
 
@@ -56,7 +50,10 @@ public class AuthorizationPageController : Controller
         {
             return RedirectToAction("AuthorizationPage", "Home");
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4272aded78983abc22d195e8468c88403d5dde4d
         return View("~/Views/Home/RegistrationPage.cshtml", person);
     }
 }
