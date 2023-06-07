@@ -41,7 +41,7 @@ public class MyAdPageController : Controller
     public async Task<IActionResult> UpdatePhoto(AddAdModel model)
     {
         var ad = await _api.UpdateAdPhoto(model);
-        if (ad is null) return NotFound();
+        if (ad is null) return View("~/Views/Home/MyAdPage.cshtml", model);
 
         return RedirectToAction("Index", "MyAdPage", new { ad.Id });
     }
@@ -49,7 +49,7 @@ public class MyAdPageController : Controller
     public async Task<IActionResult> SaveChanges(AddAdModel model)
     {
         var ad = await _api.AdUpdate(model);
-        if (ad is null) return Challenge();
+        if (ad is null) return View("~/Views/Home/MyAdPage.cshtml", model);
 
         return RedirectToAction("Index", "MyAdPage", new { ad.Id });
     }

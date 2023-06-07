@@ -21,7 +21,7 @@ public class EditingProfilePageController : Controller
     public async Task<IActionResult> SetPhoto(EditPersonModel model)
     {
         var person = await _api.UpdatePersonPhoto(model);
-        if (person is null) return Challenge();
+        if (person is null) return View("~/Views/Home/EditProfilePage.cshtml", model);
 
         model = EditPersonModel.MapFromPerson(person);
 
@@ -31,7 +31,7 @@ public class EditingProfilePageController : Controller
     public async Task<IActionResult> SaveProfileChanges(EditPersonModel model)
     {
         var person = await _api.PersonUpdate(model);
-        if (person is null) return Challenge();
+        if (person is null) return View("~/Views/Home/EditProfilePage.cshtml", model);
 
         model = EditPersonModel.MapFromPerson(person);
 
