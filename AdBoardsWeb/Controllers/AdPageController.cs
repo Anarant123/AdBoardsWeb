@@ -1,80 +1,47 @@
-﻿using AdBoardsWeb.Models.db;
+﻿using AdBoards.ApiClient;
+using AdBoards.ApiClient.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdBoardsWeb.Controllers;
 
+[Authorize]
 public class AdPageController : Controller
 {
+    private readonly AdBoardsApiClient _api;
     private readonly ILogger<AdPageController> _logger;
 
-    public AdPageController(ILogger<AdPageController> logger)
+    public AdPageController(ILogger<AdPageController> logger, AdBoardsApiClient api)
     {
         _logger = logger;
+        _api = api;
     }
 
-    public async Task<IActionResult> AdToFavorite(int Id)
+    private void SetUpViewBag(bool? addedToFavorites = null, bool? deletedFromFavorites = null, bool? reported = null)
     {
-        /*if (Context.UserNow == null)
-        {
-            ViewBag.Result = 3;
-            return View("~/Views/Home/AdPage.cshtml", Context.AdNow);
-        }
-
-        var httpClient = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Post,
-            $"http://localhost:5228/Favorites/Addition?AdId={Id}&PersonId={Context.UserNow.Id}");
-        var response = await httpClient.SendAsync(request);
-        var responseContent = await response.Content.ReadAsStringAsync();
-
-
-        if (response.IsSuccessStatusCode)
-        {
-            ViewBag.Result = 1;
-            return View("~/Views/Home/AdPage.cshtml", Context.AdNow);
-        }
-
-        ViewBag.Result = 2;
-        return View("~/Views/Home/AdPage.cshtml", Context.AdNow);*/
-        throw new Exception();
+        ViewBag.AddedToFavorites = addedToFavorites!;
+        ViewBag.DeletedFromFavorites = deletedFromFavorites!;
+        ViewBag.Reported = reported!;
     }
 
-    public async Task<IActionResult> DeleteFromFavorite(int Id)
+    public async Task<IActionResult> AdToFavorite(int id)
     {
-        /*var httpClient = new HttpClient();
-        using var response =
-            await httpClient.DeleteAsync(
-                $"http://localhost:5228/Favorites/Delete?AdId={Context.AdNow.Id}&PersonId={Context.UserNow.Id}");
-        var jsonResponse = await response.Content.ReadAsStringAsync();
-
-        ViewBag.IsFavorites = 2;
-        ViewBag.Result = 6;
-        return View("~/Views/Home/AdPage.cshtml", Context.AdNow);*/
-        throw new Exception();
+        var added = await _api.AddToFavorites(id);
+        SetUpViewBag(added);
+        return RedirectToAction("OpenAd", "AdsPage", new { id });
     }
 
-    public async Task<IActionResult> ToComplain(int Id)
+    public async Task<IActionResult> DeleteFromFavorite(int id)
     {
-        /*if (Context.UserNow == null)
-        {
-            ViewBag.Result = 3;
-            return View("~/Views/Home/AdPage.cshtml", Context.AdNow);
-        }
+        var deleted = await _api.DeleteFromFavorites(id);
+        SetUpViewBag(deletedFromFavorites: deleted);
+        return RedirectToAction("OpenAd", "AdsPage", new { id });
+    }
 
-        var httpClient = new HttpClient();
-        var request = new HttpRequestMessage(HttpMethod.Post,
-            $"http://localhost:5228/Complaint/Addition?AdId={Id}&PersonId={Context.UserNow.Id}");
-        var response = await httpClient.SendAsync(request);
-        var responseContent = await response.Content.ReadAsStringAsync();
-
-
-        if (response.IsSuccessStatusCode)
-        {
-            ViewBag.Result = 4;
-            return View("~/Views/Home/AdPage.cshtml", Context.AdNow);
-        }
-
-        ViewBag.Result = 5;
-        return View("~/Views/Home/AdPage.cshtml", Context.AdNow);*/
-        throw new Exception();
+    public async Task<IActionResult> ToComplain(int id)
+    {
+        var reported = await _api.AddToComplaints(id);
+        SetUpViewBag(reported: reported);
+        return RedirectToAction("OpenAd", "AdsPage", new { id });
     }
 }

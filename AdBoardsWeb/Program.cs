@@ -33,11 +33,12 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment()) app.UseExceptionHandler("/Home/Error");
 
 app.UseStaticFiles();
+app.UseRouting();
 
-app.UseCookiePolicy();
 app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseCookiePolicy();
 
 app.Use(async (context, next) =>
 {
@@ -45,8 +46,6 @@ app.Use(async (context, next) =>
     api.Jwt = context.User.Claims.FirstOrDefault(x => x.Type == "jwt")?.Value;
     await next(context);
 });
-
-app.UseRouting();
 
 app.MapControllerRoute("default", "{controller=Home}/{action=AdsPage}");
 

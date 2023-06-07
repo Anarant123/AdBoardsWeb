@@ -1,30 +1,18 @@
-﻿@{
+﻿@model AdBoards.ApiClient.Contracts.Requests.AddAdModel
+@{
     ViewData["Title"] = "Добавить объявление";
-    if (Model.Name == null)
-    {
-        Model.Name = "";
-        Model.Description = "";
-        Model.Price = 0;
-        Model.CotegorysId = 0;
-        Model.City = "";
-    }
-    var base64String = "/drawable/icon_image.png";
-
-    if (Model.Photo != null)
-        base64String = $"data:image/png;base64,{Convert.ToBase64String(Model.Photo)}";
-
 }
 
 <main>
     <div class="container border-dark">
-        <form>
+        <form method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-3">
                     <div class="mb-2 text-center ">
-                        <img src="@base64String" class="img-thumbnail img-fluid mb-2" alt=""/>
+                        <img src="@Model.PhotoName" class="img-thumbnail img-fluid mb-2" alt=""/>
 
                         <div class="row mb-2 text-center">
-                            <input name="filephoto" class="form-control mb-2" placeholder="Путь к файлу..." value="@ViewBag.Photo"/>
+                            <input asp-for="@Model.Photo" class="form-control mb-2"/>
                             <button type="submit" class="btn btn-dark text-light bg-dark" asp-controller="AddAdPage" asp-action="SetPhoto">Установить Фото</button>
                         </div>
                     </div>
@@ -33,20 +21,20 @@
                 <div class="col-9">
                     <div class="mb-1">
                         <label class="form-label">Название:</label>
-                        <input name="Name" class="form-control" value="@Model.Name">
+                        <input asp-for="Name" class="form-control" value="@Model.Name">
                     </div>
                     <div class="mb-1">
-                        <label for="exampleFormControlTextarea1" class="form-label">Описание:</label>
-                        <textarea name="Description" class="form-control" id="exampleFormControlTextarea1" rows="6" value="@Model.Description"></textarea>
+                        <label class="form-label">Описание:</label>
+                        <textarea asp-for="Description" class="form-control" rows="6" value="@Model.Description"></textarea>
                     </div>
                     <div class="row mb-1">
                         <div class="col-4 mb-1">
                             <label class="form-label">Цена:</label>
-                            <input type="number" pattern="\d+" title="Введите число" name="Price" class="form-control" value="@Model.Price">
+                            <input asp-for="Price" pattern="\d+" title="Введите число" class="form-control" value="@Model.Price">
                         </div>
                         <div class="col-4 mb-1">
                             <label class="form-label">Категория:</label>
-                            <select name="Cotegory" class="form-control" aria-label="Default select example" onselect="@Model.CotegorysId">
+                            <select asp-for="CategoryId" class="form-control" aria-label="Default select example" onselect="@Model.CategoryId">
                                 <option value="1">Недвижимость</option>
                                 <option value="2">Транспорт</option>
                                 <option value="3" selected>Личные вещи</option>
@@ -56,13 +44,13 @@
                         </div>
                         <div class="col-4 mb-1">
                             <label class="form-label">Город:</label>
-                            <input name="City" class="form-control" value="@Model.City">
+                            <input asp-for="City" class="form-control" value="@Model.City">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col text-center">
                             <div class="d-flex justify-content-center align-items-center">
-                                <input class="form-check-input form-check-input-dark" type="radio" name="buyOrSell" id="buyRadio" value="1"/>
+                                <input class="form-check-input form-check-input-dark" type="radio" asp-for="AdTypeId" id="buyRadio" value="1"/>
                                 <label class="form-check-label mx-2" for="buyRadio">
                                     Куплю
                                 </label>
@@ -70,7 +58,7 @@
                         </div>
                         <div class="col text-center">
                             <div class="d-flex justify-content-center align-items-center">
-                                <input class="form-check-input form-check-input-dark" type="radio" name="buyOrSell" id="sellRadio" value="2" checked="checked"/>
+                                <input class="form-check-input form-check-input-dark" type="radio" asp-for="AdTypeId" id="sellRadio" value="2" checked="checked"/>
                                 <label class="form-check-label mx-2" for="sellRadio">
                                     Продам
                                 </label>

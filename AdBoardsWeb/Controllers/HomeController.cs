@@ -1,13 +1,14 @@
 ﻿using System.Diagnostics;
 using AdBoards.ApiClient;
 using AdBoards.ApiClient.Contracts.Requests;
-using AdBoards.ApiClient.Contracts.Responses;
 using AdBoards.ApiClient.Extensions;
 using AdBoardsWeb.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdBoardsWeb.Controllers;
 
+[Authorize]
 public class HomeController : Controller
 {
     private readonly AdBoardsApiClient _api;
@@ -21,91 +22,48 @@ public class HomeController : Controller
 
     public IActionResult AddAdPage()
     {
-        /*Context.AdNow = new Ad();
-        if (Context.UserNow == null) return View("AuthorizationPage");
-        return View(Context.AdNow);*/
-        throw new Exception();
+        var ad = new AddAdModel();
+        return View(ad);
     }
 
+    [AllowAnonymous]
     public IActionResult AdPage()
     {
         return View();
     }
 
+    [AllowAnonymous]
     public async Task<IActionResult> AdsPage()
     {
-        /*Context.AdList = new AdListViewModel();
-
         var ads = await _api.GetAds();
-
-        Context.AdList.Ads = ads;
-
-        return View(Context.AdList);*/
-        throw new Exception();
+        return View(new AdsView { Ads = ads });
     }
 
+    [AllowAnonymous]
+    [Route("Authorization")]
     public IActionResult AuthorizationPage()
     {
         return View();
     }
 
-    public IActionResult EditingProfilePage()
+    public IActionResult EditProfilePage()
     {
-        /*if (Context.UserNow == null) return View("AuthorizationPage");*/
         return View();
     }
 
     public async Task<IActionResult> FavoritesAdsPage()
     {
-        /*if (Context.UserNow == null) return View("AuthorizationPage");
-
-        var httpClient = new HttpClient();
-        using var response =
-            await httpClient.GetAsync($"http://localhost:5228/Ads/GetFavoritesAds?id={Context.UserNow.Id}");
-        var jsonResponse = await response.Content.ReadAsStringAsync();
-        var responseContent = await response.Content.ReadAsStringAsync();
-
-        if (response.IsSuccessStatusCode)
-        {
-            Context.AdList = new AdListViewModel();
-
-            var options = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                ReferenceHandler = ReferenceHandler.Preserve
-            };
-
-            Context.AdList.Ads = JsonSerializer.Deserialize<List<Ad>>(responseContent, options);
-
-            ViewBag.IsSuccess = true;
-            return View(Context.AdList);
-        }
-
-        ViewBag.IsSuccess = false;*/
-        return View();
+        var ads = await _api.GetFavoritesAds();
+        var adsView = new AdsView { Ads = ads };
+        return View(adsView);
     }
 
     public async Task<IActionResult> MyAdsPage()
     {
-        /*if (Context.UserNow == null) return View("AuthorizationPage");
-
-        var httpClient = new HttpClient();
-        using var response = await httpClient.GetAsync($"http://localhost:5228/Ads/GetMyAds?id={Context.UserNow.Id}");
-        var jsonResponse = await response.Content.ReadAsStringAsync();
-        var responseContent = await response.Content.ReadAsStringAsync();
-
-        if (response.IsSuccessStatusCode)
-        {
-            Context.AdList = new AdListViewModel();
-
-            Context.AdList.Ads = JsonSerializer.Deserialize<List<Ad>>(responseContent);
-
-            ViewBag.IsSuccess = true;
-            return View(Context.AdList);
-        }
-
-        ViewBag.IsSuccess = false;*/
-        return View();
+        var ads = await _api.GetMyAds();
+        var adsView = new AdsView { Ads = ads };
+        ViewBag.IsSuccess = false;
+        return View(adsView);
     }
 
     public async Task<IActionResult> ProfilePage()
@@ -114,11 +72,13 @@ public class HomeController : Controller
         return View("~/Views/Home/ProfilePage.cshtml", person);
     }
 
+    [AllowAnonymous]
     public IActionResult RecoveryPasswordPage()
     {
         return View();
     }
 
+    [AllowAnonymous]
     public IActionResult RegistrationPage()
     {
         var p = new PersonReg();

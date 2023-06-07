@@ -1,4 +1,5 @@
-﻿@{
+﻿@model AdsView
+@{
     ViewData["Title"] = "Объявления";
 }
 
@@ -8,25 +9,25 @@
             <div class="col-3">
                 <div class="border border-secondary rounded p-2 ">
                     <form name="ApplyFilters">
-                        <input class="h5" name="v" hidden="hidden" value="ads"/>
+                        <input class="h5" asp-for="Filter.Type" hidden="hidden" value="1"/>
                         <div class="mb-1">
                             <h1 class="h1 text-center text-dark" style="color: rgb(0,123,255);">Фильтры</h1>
                         </div>
                         <div class="mb-1">
                             <label class="form-label">Цена от:</label>
-                            <input class="form-control" type="number" pattern="\d+" title="Введите число" name="From">
+                            <input class="form-control" type="number" pattern="\d+" title="Введите число" asp-for="Filter.PriceFrom">
                         </div>
                         <div class="mb-1">
                             <label class="form-label">Цена до:</label>
-                            <input class="form-control" type="number" pattern="\d+" title="Введите число" name="To">
+                            <input class="form-control" type="number" pattern="\d+" title="Введите число" asp-for="Filter.PriceUpTo">
                         </div>
                         <div class="mb-1">
                             <label class="form-label">Город:</label>
-                            <input class="form-control" name="City">
+                            <input class="form-control" asp-for="Filter.City">
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Категория:</label>
-                            <select class="form-control" aria-label="Default select example" name="Category">
+                            <select class="form-control" aria-label="Default select example" asp-for="Filter.CategoryId">
                                 <option value="0">Любая</option>
                                 <option value="1">Личные вещи</option>
                                 <option value="2">Недвижимость</option>
@@ -38,7 +39,7 @@
                         <div class="row mb-3">
                             <div class="col text-center">
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <input class="form-check-input form-check-input-dark" type="radio" name="buyOrSell" id="buyRadio" value="1"/>
+                                    <input asp-for="Filter.AdTypeId" class="form-check-input form-check-input-dark" type="radio" id="buyRadio" value="1"/>
                                     <label class="form-check-label mx-2" for="buyRadio">
                                         Куплю
                                     </label>
@@ -46,7 +47,7 @@
                             </div>
                             <div class="col text-center">
                                 <div class="d-flex justify-content-center align-items-center">
-                                    <input class="form-check-input form-check-input-dark" type="radio" name="buyOrSell" id="sellRadio" value="2" checked="checked"/>
+                                    <input asp-for="Filter.AdTypeId" class="form-check-input form-check-input-dark" type="radio" id="sellRadio" value="2" checked="checked"/>
                                     <label class="form-check-label mx-2" for="sellRadio">
                                         Продам
                                     </label>
@@ -66,27 +67,23 @@
                     <div class="row row-cols-3">
                         @foreach (var ad in Model.Ads)
                         {
-                            string nameAd = ad.Name;
+                            var nameAd = ad.Name;
 
                             if (nameAd.Length < 16)
                                 nameAd += "...";
                             else
                                 nameAd = nameAd[..16] + "...";
 
-                            var typeAd = ad.TypeOfAdId == 1 ? "Куплю" : "Продам";
-
                             <div class="col-4 p-1">
                                 <div class="border border-secondary rounded p-1">
-                                    <form name="@ad.Id" method="post">
-                                        <div class="tile">
-                                            <img src="@ad.Photo" class="img-fluid object-fit-cover" alt=""/>
-                                        </div>
-                                        <button type="submit" class="h4  btn-link p-0" asp-controller="AdsPage" asp-action="OpenAd" style="border: none; background-color: transparent; color: black; text-decoration: none; font-weight: bold">@nameAd</button>
-                                        <h5 class="h5">@ad.Price ₽</h5>
-                                        <h5 class="h5">@ad.City</h5>
-                                        <label class="my">@typeAd</label>
-                                        <input class="h5" name="Id" hidden="hidden" value="@ad.Id"/>
-                                    </form>
+                                    <div class="tile">
+                                        <img src="@ad.PhotoName" class="img-fluid object-fit-cover" alt=""/>
+                                    </div>
+                                    <a class="h4 btn-link p-0" asp-controller="AdsPage" asp-action="OpenAd" asp-route-id="@ad.Id" style="border: none; background-color: transparent; color: black; text-decoration: none; font-weight: bold">@nameAd</a>
+                                    <h5 class="h5">@ad.Price ₽</h5>
+                                    <h5 class="h5">@ad.City</h5>
+                                    <label class="my">@ad.AdType.Name</label>
+                                    <input class="h5" name="Id" hidden="hidden" value="@ad.Id"/>
                                 </div>
                             </div>
                         }

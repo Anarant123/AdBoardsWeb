@@ -1,11 +1,6 @@
-﻿@{
+﻿@model AdBoards.ApiClient.Contracts.Responses.Ad
+@{
     ViewData["Title"] = "Объявление";
-    string adPhoto = Convert.ToBase64String(Model.Photo);
-    var salesmanPhoto = "";
-    if (Model.Person.Photo != null)
-        salesmanPhoto = $"data:image/png;base64,{Convert.ToBase64String(Model.Person.Photo)}";
-    else
-        salesmanPhoto = "/drawable/icon_image_person.png";
 }
 
 <main>
@@ -14,12 +9,12 @@
             <div class="col-3">
                 <div class="row">
                     <div class="mb-2 text-center">
-                        <img src="data:image/png;base64,@adPhoto" class="img-thumbnail img-fluid mb-2" alt="">
+                        <img src="@Model.PhotoName" class="img-thumbnail img-fluid mb-2" alt="">
                     </div>
                 </div>
                 <div class="row d-flex align-items-center">
                     <div class="col-6 mb-2 text-center ">
-                        <img src="@salesmanPhoto" class="img-thumbnail img-fluid mb-2" style="width:100px;" alt="">
+                        <img src="@Model.Person.PhotoName" class="img-thumbnail img-fluid mb-2" style="width:100px;" alt="">
                     </div>
                     <div class="col-6">
                         <lable>@Model.Person.Name</lable>
@@ -50,70 +45,52 @@
                         <input class="form-control" value="@Model.City" readonly>
                     </div>
                 </div>
-                <form>
-                    <div class="row">
-                        <input class="h5" name="Id" hidden="hidden" value="@Model.Id"/>
-                        @if (ViewBag.IsFavorites == 2)
-                        {
-                            <div class="col-6 text-center d-grid gap-2 mx-auto">
-                                <button type="submit" class="btn btn-dark text-light bg-dark" asp-controller="AdPage" asp-action="AdToFavorite">Добавить в избранное</button>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="col-6 text-center d-grid gap-2 mx-auto">
-                                <button type="submit" class="btn btn-dark text-light bg-dark" asp-controller="AdPage" asp-action="DeleteFromFavorite">Удалить из избранного</button>
-                            </div>
-                        }
+                <div class="row">
+                    <input class="h5" name="Id" hidden="hidden" value="@Model.Id"/>
+                    @if (Model.IsFavorite)
+                    {
                         <div class="col-6 text-center d-grid gap-2 mx-auto">
-                            <button type="submit" class="btn btn-dark text-light bg-dark" asp-controller="AdPage" asp-action="ToComplain">Пожаловаться</button>
+                            <a class="btn btn-dark text-light bg-dark" asp-controller="AdPage" asp-action="DeleteFromFavorite" asp-route-id="@Model.Id">Удалить из избранного</a>
                         </div>
+                    }
+                    else
+                    {
+                        <div class="col-6 text-center d-grid gap-2 mx-auto">
+                            <a class="btn btn-dark text-light bg-dark" asp-controller="AdPage" asp-action="AdToFavorite" asp-route-id="@Model.Id">Добавить в избранное</a>
+                        </div>
+                    }
+                    <div class="col-6 text-center d-grid gap-2 mx-auto">
+                        <a class="btn btn-dark text-light bg-dark" asp-controller="AdPage" asp-action="ToComplain" asp-route-id="@Model.Id">Пожаловаться</a>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 </main>
 
-@if (ViewBag.Result == 1)
+@*@if (ViewBag.AddedToFavorites is not null && ViewBag.AddedToFavorites)
 {
-    <script>
-        var str = "Объявление добавленно в избранное";
-        alert(str);
-    </script>
+    <script>alert("Объявление добавленно в избранное")</script>
 }
-else if (ViewBag.Result == 2)
+else
 {
-    <script>
-        var str = "Объявление уже в избранном";
-        alert(str);
-    </script>
+    <script>alert("Объявление уже в избранном")</script>
 }
-else if (ViewBag.Result == 3)
+
+@if (ViewBag.Reported is not null && ViewBag.Reported)
 {
-    <script>
-        var str = "Необходима авторизация";
-        alert(str);
-    </script>
+    <script>alert("Жалоба успешно отправленна")</script>
 }
-else if (ViewBag.Result == 4)
+else
 {
-    <script>
-        var str = "Жалоба успешно отправленна";
-        alert(str);
-    </script>
+    <script>alert("На это объявление уже поданна жалоба")</script>
 }
-else if (ViewBag.Result == 5)
+
+@if (ViewBag.DeletedFromFavorites is not null && ViewBag.DeletedFromFavorites)
 {
-    <script>
-        var str = "На это объявление уже поданна жалоба";
-        alert(str);
-    </script>
+    <script>alert("Объявление удалено из избранного")</script>
 }
-else if (ViewBag.Result == 6)
+else
 {
-    <script>
-        var str = "Объявление удалено из избранного";
-        alert(str);
-    </script>
-}
+    <script>alert("Объявление уже удалено из избранного")</script>
+}*@

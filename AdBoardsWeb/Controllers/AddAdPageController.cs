@@ -1,54 +1,39 @@
-﻿using System.Net;
-using System.Text;
-using System.Text.Json;
+﻿using AdBoards.ApiClient;
 using AdBoards.ApiClient.Contracts.Requests;
-using AdBoardsWeb.DTO;
-using AdBoardsWeb.Models.db;
+using AdBoards.ApiClient.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdBoardsWeb.Controllers;
 
+[Authorize]
 public class AddAdPageController : Controller
 {
+    private readonly AdBoardsApiClient _api;
     private readonly ILogger<AddAdPageController> _logger;
-    private readonly AdDTO adDTO = new();
 
-    public AddAdPageController(ILogger<AddAdPageController> logger)
+    public AddAdPageController(ILogger<AddAdPageController> logger, AdBoardsApiClient api)
     {
         _logger = logger;
+        _api = api;
     }
 
     public async Task<IActionResult> AddAd(AddAdModel model)
     {
-        var httpClient = new HttpClient();
-        using StringContent jsonContent = new(JsonSerializer.Serialize(adDTO), Encoding.UTF8, "application/json");
-        using var response = await httpClient.PostAsync("http://localhost:5228/Ads/Addition", jsonContent);
-        var jsonResponse = await response.Content.ReadAsStringAsync();
+        var ad = await _api.AddAd(model);
+        if (ad is null) return View("~/Views/Home/AddAdPage.cshtml", model);
 
-        if (response.StatusCode == HttpStatusCode.OK)
-        {
-            var a = JsonSerializer.Deserialize<Ad>(jsonResponse)!;
-            Context.AdNow = a;
-            return View("~/Views/Home/MyAdPage.cshtml", a);
-        }
+        model.Id = ad.Id;
 
-        return View("~/Views/Home/AddAdPage.cshtml", adDTO);
+        await _api.UpdateAdPhoto(model);
+
+        return RedirectToAction("Index", "MyAdPage", new { ad.Id });
     }
 
-    public IActionResult SetPhoto(string filephoto, string Name, string Description, string Price, string Cotegory,
-        string City, string buyOrSell)
+    public async Task<IActionResult> SetPhoto(AddAdModel model)
     {
-        adDTO.Name = Name;
-        adDTO.City = City;
-        adDTO.Date = DateTime.Now;
-        adDTO.CotegorysId = Convert.ToInt32(Cotegory);
-        adDTO.Description = Description;
-        adDTO.Price = Convert.ToInt32(Price);
-        adDTO.TypeOfAdId = Convert.ToInt32(buyOrSell);
-        adDTO.Photo = System.IO.File.ReadAllBytes(filephoto);
-        ViewBag.Photo = filephoto;
+        var res = await _api.UpdateAdPhoto(model);
 
-
-        return View("~/Views/Home/AddAdPage.cshtml", adDTO);
+        return View("~/Views/Home/AddAdPage.cshtml", model);
     }
 }

@@ -1,29 +1,37 @@
-﻿using AdBoardsWeb.Models.db;
+﻿using AdBoards.ApiClient;
+using AdBoards.ApiClient.Contracts.Requests;
+using AdBoards.ApiClient.Extensions;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdBoardsWeb.Controllers;
 
+[Authorize]
 public class ProfilePageController : Controller
 {
+    private readonly AdBoardsApiClient _api;
     private readonly ILogger<ProfilePageController> _logger;
 
-    public ProfilePageController(ILogger<ProfilePageController> logger)
+    public ProfilePageController(ILogger<ProfilePageController> logger, AdBoardsApiClient api)
     {
         _logger = logger;
+        _api = api;
     }
 
-    public IActionResult EditingProfilePage()
+    public async Task<IActionResult> EditProfilePage()
     {
-        /*var user = Context.UserNow!;
+        var me = await _api.GetMe();
+        if (me is null) return Challenge();
 
-        return View("~/Views/Home/EditingProfilePage.cshtml", user);*/
-        throw new Exception();
+        var model = EditPersonModel.MapFromPerson(me);
+
+        return View("~/Views/Home/EditProfilePage.cshtml", model);
     }
 
-    public IActionResult Exit()
+    public async Task<IActionResult> Exit()
     {
-        /*Context.UserNow = null;*/
-
-        return View("~/Views/Home/AuthorizationPage.cshtml");
+        await HttpContext.SignOutAsync();
+        return RedirectToAction("AuthorizationPage", "Home");
     }
 }

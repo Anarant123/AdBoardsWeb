@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="row text-center row-cols-1">
-                    <a type="button" class="btn btn-dark text-light bg-dark mb-2" asp-controller="ProfilePage" asp-action="EditingProfilePage">Редактировать профиль</a>
+                    <a type="button" class="btn btn-dark text-light bg-dark mb-2" asp-controller="ProfilePage" asp-action="EditProfilePage">Редактировать профиль</a>
                     <a type="button" class="btn btn-dark text-light bg-dark" asp-controller="ProfilePage" asp-action="Exit">Выйти</a>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                         <label class="lblperson">@Model.Name</label>
                     </div>
                     <div class="mb-1 row">
-                        <label class="lblperson">@Model.Birthday</label>
+                        <label type="date" class="lblperson">@DateOnly.FromDateTime(Model.Birthday)</label>
                     </div>
                     <div class="mb-1 row">
                         <div class="col-1">
