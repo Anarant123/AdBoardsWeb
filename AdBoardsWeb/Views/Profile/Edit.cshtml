@@ -1,0 +1,66 @@
+﻿@model EditProfileViewModel
+@{
+    ViewData["Title"] = "Редактор профиля";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="row gx-5">
+    <div class="col-3">
+        <div class="row">
+            <div class="mb-2 text-center p-0">
+                <img src="@Model.PhotoName" class="img-thumbnail img-fluid mb-2" height="400" width="400" alt="">
+            </div>
+        </div>
+        <div class="row">
+            <form asp-controller="Profile" asp-action="Photo" method="post" enctype="multipart/form-data" class="p-0">
+                <input asp-for="PhotoName" hidden/>
+                <input asp-for="Name" hidden/>
+                <input asp-for="Phone" hidden/>
+                <input asp-for="Email" hidden/>
+                <input asp-for="City" hidden/>
+                <input asp-for="Birthday" hidden/>
+                <input asp-for="Photo" class="form-control mb-2"/>
+                <button type="submit" class="btn btn-dark text-light bg-dark w-100">Установить фото</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-9">
+        <form asp-controller="Profile" asp-action="Edit" method="post" enctype="multipart/form-data" class="p-0">
+            <input asp-for="PhotoName" hidden/>
+            <div class="mb-2">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control"/>
+                <span asp-validation-for="Name" class="text-error"></span>
+            </div>
+            <div class="mb-2">
+                <label asp-for="Phone" class="form-label"></label>
+                <input asp-for="Phone" class="form-control"/>
+                <span asp-validation-for="Phone" class="text-error"></span>
+            </div>
+            <div class="mb-2">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control"/>
+                <span asp-validation-for="Email" class="text-error"></span>
+            </div>
+            <div class="mb-2">
+                <label asp-for="City" class="form-label"></label>
+                <input asp-for="City" class="form-control"/>
+                <span asp-validation-for="City" class="text-error"></span>
+            </div>
+            <div class="mb-2">
+                <label asp-for="Birthday" class="form-label"></label>
+                <input asp-for="Birthday" class="form-control"/>
+                <span asp-validation-for="Birthday" class="text-error"></span>
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-error"></div>
+            <div class="row mt-5">
+                <div class="col-6 text-center d-grid gap-2 mx-auto">
+                    <button type="submit" class="btn btn-dark text-light bg-dark">Сохранить изменения</button>
+                </div>
+                <div class="col-6 text-center d-grid gap-2 mx-auto">
+                    <a class="btn btn-dark text-light bg-dark" asp-controller="Profile" asp-action="Index">Отмена</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

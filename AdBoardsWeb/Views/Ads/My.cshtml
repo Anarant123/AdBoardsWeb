@@ -1,0 +1,97 @@
+﻿@model AdsViewModel
+@{
+    ViewData["Title"] = "Мои объявления";
+}
+
+<h1>@ViewData["Title"]</h1>
+@if (Model.Ads.Count > 0)
+{
+    <div class="container border-dark">
+        <div class="row">
+            <div class="col-3">
+                <div class="border border-secondary rounded p-2 ">
+                    <form name="ApplyFilters" method="get">
+                        <input class="h5" asp-for="Filter.Type" hidden value="2"/>
+                        <div class="mb-1">
+                            <h1 class="h1 text-center text-dark" style="color: rgb(0,123,255);">Фильтры</h1>
+                        </div>
+                        <div class="mb-1">
+                            <label class="form-label">Цена от:</label>
+                            <input class="form-control" type="number" pattern="\d+" title="Введите число" asp-for="Filter.PriceFrom">
+                        </div>
+                        <div class="mb-1">
+                            <label class="form-label">Цена до:</label>
+                            <input class="form-control" type="number" pattern="\d+" title="Введите число" asp-for="Filter.PriceUpTo">
+                        </div>
+                        <div class="mb-1">
+                            <label class="form-label">Город:</label>
+                            <input class="form-control" asp-for="Filter.City">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Категория:</label>
+                            <select class="form-control" aria-label="Default select example" asp-for="Filter.CategoryId">
+                                <option value="0">Любая</option>
+                                <option value="1">Личные вещи</option>
+                                <option value="2">Недвижимость</option>
+                                <option value="3">Транспорт</option>
+                                <option value="4">Услуга</option>
+                                <option value="5">Электроника</option>
+                            </select>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col text-center">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <input asp-for="Filter.AdTypeId" class="form-check-input form-check-input-dark" type="radio" id="buyRadio" value="1"/>
+                                    <label class="form-check-label mx-2" for="buyRadio">
+                                        Куплю
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col text-center">
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <input asp-for="Filter.AdTypeId" class="form-check-input form-check-input-dark" type="radio" id="sellRadio" value="2" checked="checked"/>
+                                    <label class="form-check-label mx-2" for="sellRadio">
+                                        Продам
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-2 text-center">
+                            <button type="submit" class="btn btn-dark text-light bg-dark" asp-controller="Ads" asp-action="ApplyFilters">Применить фильтры</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-9">
+                <div class="row row-cols-3">
+                    @foreach (var ad in Model.Ads)
+                    {
+                        var nameAd = ad.Name;
+                        if (nameAd.Length < 16)
+                            nameAd = nameAd + "...";
+                        else
+                            nameAd = nameAd.Substring(0, 16) + "...";
+
+                        <div class="col-4 p-1">
+                            <div class="border border-secondary rounded p-1 ">
+                                <div class="tile">
+                                    <img src="@ad.PhotoName" class="img-fluid object-fit-cover" alt=""/>
+                                </div>
+                                <a class="h4 btn-link p-0" asp-controller="Ads" asp-action="MyAd" asp-route-id="@ad.Id" style="border: none; background-color: transparent; color: black; text-decoration: none; font-weight: bold">@nameAd</a>
+                                <h5 class="h5">@ad.Price ₽</h5>
+                                <h5 class="h5">@ad.City</h5>
+                                <label class="my">@ad.AdType.Name</label>
+                                <input class="h5" name="Id" hidden="hidden" value="@ad.Id"/>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div>У вас нет объявлений</div>
+}

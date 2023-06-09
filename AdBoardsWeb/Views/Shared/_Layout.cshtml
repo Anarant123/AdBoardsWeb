@@ -14,36 +14,35 @@
     <div class="px-3 py-2 bg-dark text-white">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a class="navbar-brand d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none fs-2" asp-area="" asp-controller="Home" asp-action="AdsPage">AdBoards</a>
-
+                <a class="navbar-brand d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none fs-2" asp-controller="Ads" asp-action="Index">AdBoards</a>
                 <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                     <li>
-                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="AdsPage">
-                            <img class="bi d-block mx-auto mb-1" width="24" height="24" src="/drawable0/icon_loop.png"/>
+                        <a asp-controller="Ads" asp-action="Index" class="nav-link text-white">
+                            <img class="bi d-block mx-auto mb-1" width="24" height="24" src="/drawable0/icon_loop.png" alt=""/>
                             Поиск
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="MyAdsPage">
-                            <img class="bi d-block mx-auto mb-1" width="24" height="24" src="/drawable0/icon_my_ads.png"/>
+                        <a asp-controller="Ads" asp-action="My" class="nav-link text-white">
+                            <img class="bi d-block mx-auto mb-1" width="24" height="24" src="/drawable0/icon_my_ads.png" alt=""/>
                             Мои объявления
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="AddAdPage">
-                            <img class="bi d-block mx-auto mb-1" width="24" height="24" src="/drawable0/icon_plus.png"/>
+                        <a asp-controller="Ads" asp-action="Create" class="nav-link text-white">
+                            <img class="bi d-block mx-auto mb-1" width="24" height="24" src="/drawable0/icon_plus.png" alt=""/>
                             Добавить объявление
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="FavoritesAdsPage">
-                            <img class="bi d-block mx-auto mb-1" width="24" height="24" src="/drawable0/icon_favorites.png"/>
+                        <a asp-controller="Ads" asp-action="Favorites" class="nav-link text-white">
+                            <img class="bi d-block mx-auto mb-1" width="24" height="24" src="/drawable0/icon_favorites.png" alt=""/>
                             Избранное
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="ProfilePage">
-                            <img class="bi d-block mx-auto mb-1" width="24" height="24" src="/drawable0/icon_person.png"/>
+                        <a asp-controller="Profile" asp-action="Index" class="nav-link text-white">
+                            <img class="bi d-block mx-auto mb-1" width="24" height="24" src="/drawable0/icon_person.png" alt=""/>
                             Мой профиль
                         </a>
                     </li>
@@ -51,22 +50,18 @@
             </div>
         </div>
     </div>
-
 </header>
-<div class="container">
-    <main role="main" class="pb-3" style="padding:20px">
-        @RenderBody()
-    </main>
-</div>
-
+<main role="main" class="pb-3" style="padding:20px">
+    <div class="container">@RenderBody()</div>
+</main>
 <footer class="border-top footer text-muted">
     <div class="container">
-        &copy; 2023 - AdBoardsWeb - <a href="https://github.com/Anarant123">Mikhail Safronov</a>
+        &copy; @DateTime.UtcNow.Year - AdBoardsWeb - <a href="https://github.com/Anarant123">Mikhail Safronov</a>
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
-@await RenderSectionAsync("Scripts", false)
+@await RenderSectionAsync("scripts", false)
 </body>
 </html>

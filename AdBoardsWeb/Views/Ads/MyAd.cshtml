@@ -1,0 +1,79 @@
+﻿@model CreateAdViewModel
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="container border-dark">
+    <form method="post" enctype="multipart/form-data">
+        <input asp-for="PhotoName" hidden/>
+        <div class="row">
+            <div class="col-3">
+                <div class="row">
+                    <div class="mb-2 text-center">
+                        <img src="@Model.PhotoName" class="img-thumbnail img-fluid mb-2" alt="">
+                        <input asp-for="Photo" class="form-control mb-2">
+                        <button type="submit" class="btn btn-dark text-light bg-dark" asp-controller="Ads" asp-action="UpdatePhoto">Обновить Фото</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="mb-1">
+                    <label class="form-label">Название:</label>
+                    <input asp-for="Name" class="form-control" value="@Model.Name">
+                </div>
+                <div class="mb-1">
+                    <label for="exampleFormControlTextarea1" class="form-label">Описание:</label>
+                    <textarea asp-for="Description" class="form-control" rows="6">@Model.Description</textarea>
+                </div>
+                <div class="row mb-1">
+                    <div class="col-4 mb-1">
+                        <label class="form-label">Цена:</label>
+                        <input class="form-control" name="Price" value="@Model.Price">
+                    </div>
+                    <div class="col-4 mb-1">
+                        <label class="form-label">Категория:</label>
+                        <select class="form-control" aria-label="Default select example" asp-for="CategoryId">
+                            <option value="1">Недвижимость</option>
+                            <option value="2">Транспорт</option>
+                            <option value="3" selected>Личные вещи</option>
+                            <option value="4">Услуга</option>
+                            <option value="5">Электроника</option>
+                        </select>
+                    </div>
+                    <div class="col-4 mb-1">
+                        <label class="form-label">Город:</label>
+                        <input asp-for="City" class="form-control" value="@Model.City">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col text-center">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <input class="form-check-input form-check-input-dark" type="radio" asp-for="AdTypeId" id="buyRadio" value="1"/>
+                            <label class="form-check-label mx-2" for="buyRadio">
+                                Куплю
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col text-center">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <input class="form-check-input form-check-input-dark" type="radio" asp-for="AdTypeId" id="sellRadio" value="2" checked="checked"/>
+                            <label class="form-check-label mx-2" for="sellRadio">
+                                Продам
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <input asp-for="Id" class="h5" hidden="hidden" value="@Model.Id"/>
+                    <div class="col-6 text-center d-grid gap-2 mx-auto">
+                        <button type="submit" class="btn btn-dark text-light bg-dark" asp-controller="Ads" asp-action="MyAd">Сохранить изменения</button>
+                    </div>
+                    <div class="col-6 text-center d-grid gap-2 mx-auto">
+                        <a class="btn btn-dark text-light bg-dark" asp-controller="Ads" asp-action="Delete" asp-route-id="@Model.Id">Удалить</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

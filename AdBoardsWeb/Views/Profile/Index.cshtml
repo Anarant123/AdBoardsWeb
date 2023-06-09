@@ -1,0 +1,80 @@
+﻿@using System.Globalization
+@model ProfileViewModel
+@{
+    ViewData["Title"] = "Профиль";
+}
+
+<h1>@ViewData["Title"]</h1>
+<div class="row gx-5">
+    <div class="col-3">
+        <div class="row">
+            <div class="mb-2 text-center p-0">
+                <img src="@Model.PhotoName" class="img-thumbnail img-fluid mb-2" height="400" width="400" alt="">
+            </div>
+        </div>
+        <div class="row text-center row-cols-1">
+            <a class="btn btn-dark text-light bg-dark mb-2" asp-controller="Profile" asp-action="Edit">Редактировать профиль</a>
+            <form asp-controller="Auth" asp-action="Exit" method="post" class="p-0">
+                <button type="submit" class="btn btn-dark text-light bg-dark w-100">Выйти</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-9">
+        <div class="row align-items-center px-3">
+            <label asp-for="Login" class="col-2"></label>
+            <div class="mb-1 col-6">
+                <label class="lblperson">@Model.Login</label>
+            </div>
+        </div>
+        <hr/>
+        @if (Model.Name is not null)
+        {
+            <div class="row align-items-center px-3">
+                <label asp-for="Name" class="col-2"></label>
+                <div class="mb-1 col-6">
+                    <label class="lblperson">@Model.Name</label>
+                </div>
+            </div>
+            <hr/>
+        }
+        <div class="row align-items-center px-3">
+            <label asp-for="Birthday" class="col-2"></label>
+            <div class="mb-1 col-6">
+                <label class="lblperson">@Model.Birthday.ToString("d MMMM yyyy г.", new CultureInfo("ru-RU"))</label>
+            </div>
+        </div>
+        <hr/>
+        <div class="row align-items-center px-3">
+            @*<label asp-for="Phone"></label>*@
+            <div class="col-2">
+                <img class="img-fluid rounded-start" height="30" width="30" src="/drawable/icon_phone.png" alt=""/>
+            </div>
+            <div class="mb-1 col-6">
+                <label class="lblperson">@Model.Phone</label>
+            </div>
+        </div>
+        <hr>
+        <div class="row align-items-center px-3">
+            @*<label asp-for="Email"></label>*@
+            <div class="col-2">
+                <img class="img-fluid rounded-start" height="30" width="30" src="/drawable/icon_mail.png" alt=""/>
+            </div>
+            <div class="mb-1 col-6">
+                <label class="lblperson">@Model.Email</label>
+            </div>
+        </div>
+        <hr/>
+        @if (Model.City is not null)
+        {
+            <div class="row align-items-center px-3">
+                @*<label asp-for="City"></label>*@
+                <div class="col-2">
+                    <img class="img-fluid rounded-start" height="30" width="30" src="/drawable/icon_map_location.png" alt=""/>
+                </div>
+                <div class="mb-1 col-6">
+                    <label class="lblperson">@Model.City</label>
+                </div>
+            </div>
+        }
+    </div>
+</div>

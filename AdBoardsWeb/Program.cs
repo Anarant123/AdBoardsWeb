@@ -47,6 +47,6 @@ app.Use(async (context, next) =>
     await next(context);
 });
 
-app.MapControllerRoute("default", "{controller=Home}/{action=AdsPage}");
+app.MapControllerRoute("default", "{controller=Ads}/{action=Index}");
 
 app.Run();

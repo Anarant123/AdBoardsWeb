@@ -1,15 +1,17 @@
-﻿@model AdsView
+﻿@model AdsViewModel
 @{
-    ViewData["Title"] = "Объявления";
+    ViewData["Title"] = "Избранное";
 }
 
-<main>
+<h1>@ViewData["Title"]</h1>
+@if (Model.Ads.Count > 0)
+{
     <div class="container border-dark">
         <div class="row">
             <div class="col-3">
                 <div class="border border-secondary rounded p-2 ">
-                    <form name="ApplyFilters">
-                        <input class="h5" asp-for="Filter.Type" hidden="hidden" value="1"/>
+                    <form name="ApplyFilters" method="get">
+                        <input class="h5" asp-for="Filter.Type" hidden="hidden" value="3"/>
                         <div class="mb-1">
                             <h1 class="h1 text-center text-dark" style="color: rgb(0,123,255);">Фильтры</h1>
                         </div>
@@ -55,45 +57,43 @@
                             </div>
                         </div>
                         <div class="mb-2 text-center">
-                            <button type="submit" class="btn btn-dark text-light bg-dark" asp-controller="AdsPage" asp-action="ApplyFilters">Применить фильтры</button>
+                            <button type="submit" class="btn btn-dark text-light bg-dark" asp-controller="Ads" asp-action="ApplyFilters">Применить фильтры</button>
                         </div>
                     </form>
                 </div>
             </div>
 
             <div class="col-9">
-                @if (Model.Ads.Count > 0)
-                {
-                    <div class="row row-cols-3">
-                        @foreach (var ad in Model.Ads)
-                        {
-                            var nameAd = ad.Name;
+                <div class="row row-cols-3">
+                    @foreach (var ad in Model.Ads)
+                    {
+                        var nameAd = ad.Name;
+                        if (nameAd.Length < 16)
+                            nameAd += "...";
+                        else
+                            nameAd = nameAd.Substring(0, 16) + "...";
 
-                            if (nameAd.Length < 16)
-                                nameAd += "...";
-                            else
-                                nameAd = nameAd[..16] + "...";
-
-                            <div class="col-4 p-1">
-                                <div class="border border-secondary rounded p-1">
+                        <div class="col-4 p-1">
+                            <div class="border border-secondary rounded p-1 ">
+                                <form name="@ad.Id" method="post">
                                     <div class="tile">
                                         <img src="@ad.PhotoName" class="img-fluid object-fit-cover" alt=""/>
                                     </div>
-                                    <a class="h4 btn-link p-0" asp-controller="AdsPage" asp-action="OpenAd" asp-route-id="@ad.Id" style="border: none; background-color: transparent; color: black; text-decoration: none; font-weight: bold">@nameAd</a>
+                                    <a class="h4  btn-link p-0" asp-controller="Ads" asp-action="Ad" asp-route-id="@ad.Id" style="border: none; background-color: transparent; color: black; text-decoration: none; font-weight: bold">@nameAd</a>
                                     <h5 class="h5">@ad.Price ₽</h5>
                                     <h5 class="h5">@ad.City</h5>
                                     <label class="my">@ad.AdType.Name</label>
                                     <input class="h5" name="Id" hidden="hidden" value="@ad.Id"/>
-                                </div>
+                                </form>
                             </div>
-                        }
-                    </div>
-                }
-                else
-                {
-                    <div>Ничего не найдено</div>
-                }
+                        </div>
+                    }
+                </div>
             </div>
         </div>
     </div>
-</main>
+}
+else
+{
+    <div>У вас ничего нет в избранном</div>
+}

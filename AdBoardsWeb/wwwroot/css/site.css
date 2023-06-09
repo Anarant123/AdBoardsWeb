@@ -19,6 +19,10 @@ html {
     min-height: 100%;
 }
 
+h1 {
+    margin-bottom: 2rem;
+}
+
 body {
     margin-bottom: 60px;
 }
@@ -53,4 +57,9 @@ body {
 
 textarea {
     resize: vertical;
+}
+
+.text-error {
+    color: red;
+    font-size: small;
 }

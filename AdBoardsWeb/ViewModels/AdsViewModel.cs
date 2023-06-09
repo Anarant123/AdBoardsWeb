@@ -1,8 +1,9 @@
 using AdBoards.ApiClient.Contracts.Responses;
+using AdBoardsWeb.Models;
 
-namespace AdBoardsWeb.Models;
+namespace AdBoardsWeb.ViewModels;
 
-public class AdsView
+public class AdsViewModel
 {
     public FilterModel Filter { get; set; } = new();
 

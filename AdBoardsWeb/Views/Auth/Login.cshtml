@@ -1,0 +1,30 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Авторизация";
+}
+
+<div class="container col-md-6 mx-auto">
+    <div class="row justify-content-center">
+        <form asp-controller="Auth" asp-action="Login" method="post" asp-route-returnurl="@ViewData["ReturnUrl"]">
+            <h1>@ViewData["Title"]</h1>
+            <div class="form-group my-3">
+                <label asp-for="Login"></label>
+                <input asp-for="Login" class="form-control"/>
+                <span asp-validation-for="Login" class="text-error"></span>
+            </div>
+            <div class="form-group my-3">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control"/>
+                <span asp-validation-for="Password" class="text-error"></span>
+            </div>
+            <div asp-validation-summary="ModelOnly" class="text-error"></div>
+            <div class="form-group">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-dark text-light bg-dark col mx-1">Войти</button>
+                    <a asp-action="Register" class="btn btn-dark text-light bg-dark col mx-1">Зарегистрироваться</a>
+                    <a asp-action="RecoveryPassword" class="btn btn-dark text-light bg-dark col mx-1">Забыли пароль?</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
